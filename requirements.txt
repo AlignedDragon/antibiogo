@@ -1,0 +1,16 @@
+opencv_python==4.10.0.84
+pandas==2.2.3
+Pillow==11.0.0
+scipy==1.14.1
+scikit-image==0.25.2
+protobuf==3.20.3
+tensorflow[and-cuda]==2.17.0
+#tensorflow-examples @ git+https://github.com/tensorflow/examples.git@fff4bcda7201645a1efaea4534403daf5fc03d42
+tensorflow-io
+tensorrt
+numpy==1.26.4
+scipy==1.14.1
+ipython==8.18.1
+matplotlib==3.9.0
+wandb==0.17.8
+model_profiler==1.1.8
