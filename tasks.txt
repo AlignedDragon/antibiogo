@@ -1,0 +1,5 @@
+- keras_cv add it to requirements.txt
+- get yolo data ready
+- get data for xyr and train
+- how to evaluate the model? we get max_allowed limit. we get variance -> x percent sure the radisu is inside max_allowed
+- which percent certainity is good enough? chosen based on the data at hand. 

@@ -1,4 +1,5 @@
-from tensorflow_examples.models.pix2pix import pix2pix
+# why ssl contexts are needed?
+
 from ssl import _create_default_https_context, _create_unverified_context
 from utils import IMG_SIZE, initial_bias
 import tensorflow as tf
@@ -11,7 +12,8 @@ def xyr_model():
     model = tf.keras.applications.EfficientNetV2B0(input_shape=[IMG_SIZE, IMG_SIZE, 3], include_top=False)
     x = model(inputs)
     x = tf.keras.layers.GlobalMaxPooling2D()(x)
-    outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(90))(x)   # 0th output is mu, 1st output is sigma
+    # 0th output is mu, 1st output is sigma
+    outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(90))(x)  
     return CustomModel(inputs = inputs, outputs = outputs)
 
 

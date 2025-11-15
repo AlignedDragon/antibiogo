@@ -1,3 +1,4 @@
+# path names correct, class_ids: 0 None, 1 pellet, 2 circular dish, 3 rectangular dish 
 
 from typing import List
 import matplotlib.pyplot as plt
@@ -33,7 +34,7 @@ BUFFER_SIZE = 128
 BATCH_SIZE = 32
 LEARNING_RATE = 0.0003
 GLOBAL_CLIPNORM = 10.0
-class_ids = ["None", "ihz", 'pellet', 'dish']
+class_ids = ["None", "pellet", 'circular_dish', 'rectangular_dish']
 class_mapping = dict(zip(range(len(class_ids)), class_ids))
 # The required image size.
 
@@ -57,22 +58,6 @@ def display(display_list:List)->None:
   plt.show()
 
 
-  # def drawer(image, tars):
-  #   colors = ['green', 'red']
-  #   draw = ImageDraw.Draw(image)
-  #   for i in range(len(tars)):
-  #     boxes = tars[i]
-  #     for box in boxes:
-  #         if all(coord == -1 for coord in box):  # Skip invalid boxes
-  #             continue
-  #         x_min = int(box[0] - box[3] / 2)
-  #         y_min = int(box[1] - box[2] / 2)
-  #         x_max = int(box[0] + box[3] / 2)
-  #         y_max = int(box[1] + box[2] / 2)
-  #         if x_min>0 and x_max < 1024 and y_min>0 and y_max < 1024:
-  #           draw.rectangle([x_min, y_min, x_max, y_max], outline=colors[i], width=2)
-      
-  #   return image
 def drawer(image: list, tars: list):
   colors = [(0,255,0), (255, 0, 0)]
   for i in range(len(tars)):

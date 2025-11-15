@@ -2,13 +2,6 @@ import tensorflow as tf
 tf.config.run_functions_eagerly(True)
 from tensorflow.experimental import numpy as tnp
 
-# sqrpi = tf.sqrt(tnp.pi)
-
-# def area(targets):
-#   x,y,r = targets[..., 0], targets[..., 1], targets[..., 2] 
-#   r = sqrpi*r
-#   return tf.stack([x, y,2 * r,2 * r], axis=-1)
-
 class GaussianNLL(tf.keras.losses.Loss):
     def call(self, y_true, y_pred):
         mu, sigma = y_pred[..., 0], y_pred[..., 1]
@@ -23,18 +16,13 @@ class CustomModel(tf.keras.Model):
     self.mse_metric = tf.keras.metrics.MeanSquaredError(name="mse")
 
   def train_step(self, data):
-    # print(data)
     image, target = data
-    # print("Train step - Image shape:", tf.shape(image))
-    # print("Train step - Target shape:", tf.shape(target))
     # Open a GradientTape.
     with tf.GradientTape() as tape:
         # Forward pass.
         predictions = self(image, training=True)
-        # print("Predictions shape:", predictions.shape)
-        # Compute the loss.
-        # loss_value = tf.keras.losses.MeanSquaredError()(y_true=area(target), y_pred=area(predictions))
         loss_value = GaussianNLL(y_true = target, y_pred = predictions)
+        
     # Compute gradients and update weights
     trainable_vars = self.trainable_variables
     grads = tape.gradient(loss_value, trainable_vars)

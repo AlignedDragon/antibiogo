@@ -1,3 +1,4 @@
+# correct path variables
 
 from typing import List
 import matplotlib.pyplot as plt
