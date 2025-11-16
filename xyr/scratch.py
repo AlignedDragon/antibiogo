@@ -3,7 +3,6 @@ import os
 from utils import root_path, IMG_SIZE
 import PIL
 
-
 zones = os.path.join(root_path, "ihz_1024.json")
 images = os.path.join(root_path, "complete")
 patches = os.path.join(root_path, "patches")
@@ -35,10 +34,12 @@ for k, v_list in zones.items():
         area = (x-d, y-d, x+d, y+d)
         img.crop(area).save(str(os.path.join(patches, f"{k.split('.')[0]}_{i}.jpg")), "JPEG")
         radii[f"{k.split('.')[0]}_{i}.jpg"] = r
+
+
     count +=1
-    if count % 20 == 0:
+    if count % 10 == 0:
         print(f"{count} - done")
-    if count > 500:
+    if count > 100:
         break
 
 with open(os.path.join(root_path, "radii.json"), 'w') as f:

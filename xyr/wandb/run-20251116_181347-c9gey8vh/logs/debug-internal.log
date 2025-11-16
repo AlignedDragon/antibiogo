@@ -1,0 +1,21 @@
+{"time":"2025-11-16T18:13:48.002670035+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:13:48.002715538+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_181347-c9gey8vh/logs/debug-core.log"}
+{"time":"2025-11-16T18:13:48.00378008+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:13:48.003784656+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_181347-c9gey8vh/logs/debug-core.log"}
+{"time":"2025-11-16T18:13:48.40126532+01:00","level":"INFO","msg":"created new stream","id":"c9gey8vh"}
+{"time":"2025-11-16T18:13:48.401336006+01:00","level":"INFO","msg":"stream: started","id":"c9gey8vh"}
+{"time":"2025-11-16T18:13:48.401376004+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"c9gey8vh"}}
+{"time":"2025-11-16T18:13:48.40150544+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"c9gey8vh"}}
+{"time":"2025-11-16T18:13:48.402281672+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"c9gey8vh"}}
+{"time":"2025-11-16T18:13:48.772385336+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-16T18:13:48.77725296+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-11-16T18:13:53.302451486+01:00","level":"INFO","msg":"stream: closing","id":"c9gey8vh"}
+{"time":"2025-11-16T18:13:53.30316068+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-11-16T18:13:53.306213417+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-11-16T18:13:53.507226302+01:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2025-11-16T18:13:53.507272796+01:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2025-11-16T18:13:53.5072791+01:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2025-11-16T18:13:54.629630835+01:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"c9gey8vh"}}
+{"time":"2025-11-16T18:13:54.629729232+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"c9gey8vh"}}
+{"time":"2025-11-16T18:13:54.629760143+01:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"c9gey8vh"}}
+{"time":"2025-11-16T18:13:54.632916493+01:00","level":"INFO","msg":"stream: closed","id":"c9gey8vh"}

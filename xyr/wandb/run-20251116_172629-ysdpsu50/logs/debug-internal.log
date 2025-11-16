@@ -1,0 +1,21 @@
+{"time":"2025-11-16T17:26:29.206486564+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T17:26:29.206514147+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_172629-ysdpsu50/logs/debug-core.log"}
+{"time":"2025-11-16T17:26:29.207568032+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T17:26:29.20757232+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_172629-ysdpsu50/logs/debug-core.log"}
+{"time":"2025-11-16T17:26:29.387671001+01:00","level":"INFO","msg":"created new stream","id":"ysdpsu50"}
+{"time":"2025-11-16T17:26:29.387716632+01:00","level":"INFO","msg":"stream: started","id":"ysdpsu50"}
+{"time":"2025-11-16T17:26:29.387730807+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"ysdpsu50"}}
+{"time":"2025-11-16T17:26:29.387724055+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"ysdpsu50"}}
+{"time":"2025-11-16T17:26:29.387739607+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"ysdpsu50"}}
+{"time":"2025-11-16T17:26:29.738212594+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-16T17:26:29.746921229+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-11-16T17:26:30.111475087+01:00","level":"INFO","msg":"stream: closing","id":"ysdpsu50"}
+{"time":"2025-11-16T17:26:30.486050974+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-11-16T17:26:30.486367443+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-11-16T17:26:30.915443452+01:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2025-11-16T17:26:30.915460539+01:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2025-11-16T17:26:30.915467547+01:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2025-11-16T17:26:31.566853426+01:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"ysdpsu50"}}
+{"time":"2025-11-16T17:26:31.566879409+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"ysdpsu50"}}
+{"time":"2025-11-16T17:26:31.566893808+01:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"ysdpsu50"}}
+{"time":"2025-11-16T17:26:31.568468475+01:00","level":"INFO","msg":"stream: closed","id":"ysdpsu50"}

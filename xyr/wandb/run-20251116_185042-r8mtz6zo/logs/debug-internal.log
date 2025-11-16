@@ -1,0 +1,21 @@
+{"time":"2025-11-16T18:50:42.519868319+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:50:42.519899262+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_185042-r8mtz6zo/logs/debug-core.log"}
+{"time":"2025-11-16T18:50:42.521407274+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:50:42.521411882+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_185042-r8mtz6zo/logs/debug-core.log"}
+{"time":"2025-11-16T18:50:42.732041134+01:00","level":"INFO","msg":"created new stream","id":"r8mtz6zo"}
+{"time":"2025-11-16T18:50:42.732093005+01:00","level":"INFO","msg":"stream: started","id":"r8mtz6zo"}
+{"time":"2025-11-16T18:50:42.73210638+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"r8mtz6zo"}}
+{"time":"2025-11-16T18:50:42.73211406+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"r8mtz6zo"}}
+{"time":"2025-11-16T18:50:42.732098444+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"r8mtz6zo"}}
+{"time":"2025-11-16T18:50:43.03788594+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-16T18:50:43.045479565+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-11-16T18:53:02.931660764+01:00","level":"INFO","msg":"stream: closing","id":"r8mtz6zo"}
+{"time":"2025-11-16T18:53:02.932623962+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-11-16T18:53:02.937653738+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-11-16T18:53:03.146545972+01:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2025-11-16T18:53:03.14660005+01:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2025-11-16T18:53:03.14660677+01:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2025-11-16T18:53:04.25869562+01:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"r8mtz6zo"}}
+{"time":"2025-11-16T18:53:04.258737186+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"r8mtz6zo"}}
+{"time":"2025-11-16T18:53:04.258822879+01:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"r8mtz6zo"}}
+{"time":"2025-11-16T18:53:04.260391688+01:00","level":"INFO","msg":"stream: closed","id":"r8mtz6zo"}

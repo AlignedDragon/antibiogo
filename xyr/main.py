@@ -11,7 +11,7 @@ import tensorflow as tf
 
 
 if __name__=="__main__":
-    EPOCHS = 100
+    EPOCHS = 50
     # Launch an experiment
     wandb.init(
         project="yolo",

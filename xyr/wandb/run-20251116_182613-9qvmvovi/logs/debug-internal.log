@@ -1,0 +1,21 @@
+{"time":"2025-11-16T18:26:13.521982231+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:26:13.522010039+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_182613-9qvmvovi/logs/debug-core.log"}
+{"time":"2025-11-16T18:26:13.523154164+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:26:13.523161172+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_182613-9qvmvovi/logs/debug-core.log"}
+{"time":"2025-11-16T18:26:13.748047249+01:00","level":"INFO","msg":"created new stream","id":"9qvmvovi"}
+{"time":"2025-11-16T18:26:13.748091472+01:00","level":"INFO","msg":"stream: started","id":"9qvmvovi"}
+{"time":"2025-11-16T18:26:13.748110159+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"9qvmvovi"}}
+{"time":"2025-11-16T18:26:13.748114895+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"9qvmvovi"}}
+{"time":"2025-11-16T18:26:13.748101104+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"9qvmvovi"}}
+{"time":"2025-11-16T18:26:14.059036563+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-16T18:26:14.065422771+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-11-16T18:28:32.771195402+01:00","level":"INFO","msg":"stream: closing","id":"9qvmvovi"}
+{"time":"2025-11-16T18:28:32.771778937+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-11-16T18:28:32.776428305+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-11-16T18:28:32.983911557+01:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2025-11-16T18:28:32.983946244+01:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2025-11-16T18:28:32.983955684+01:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2025-11-16T18:28:34.068037553+01:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"9qvmvovi"}}
+{"time":"2025-11-16T18:28:34.068078992+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"9qvmvovi"}}
+{"time":"2025-11-16T18:28:34.068096879+01:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"9qvmvovi"}}
+{"time":"2025-11-16T18:28:34.069832796+01:00","level":"INFO","msg":"stream: closed","id":"9qvmvovi"}

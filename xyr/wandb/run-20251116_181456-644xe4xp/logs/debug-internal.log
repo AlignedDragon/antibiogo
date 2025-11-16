@@ -1,0 +1,21 @@
+{"time":"2025-11-16T18:14:56.80059704+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:14:56.800671789+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_181456-644xe4xp/logs/debug-core.log"}
+{"time":"2025-11-16T18:14:56.802148543+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:14:56.802157759+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/xyr/wandb/run-20251116_181456-644xe4xp/logs/debug-core.log"}
+{"time":"2025-11-16T18:14:57.069794482+01:00","level":"INFO","msg":"created new stream","id":"644xe4xp"}
+{"time":"2025-11-16T18:14:57.069850288+01:00","level":"INFO","msg":"stream: started","id":"644xe4xp"}
+{"time":"2025-11-16T18:14:57.069859792+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"644xe4xp"}}
+{"time":"2025-11-16T18:14:57.069880655+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"644xe4xp"}}
+{"time":"2025-11-16T18:14:57.069866927+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"644xe4xp"}}
+{"time":"2025-11-16T18:14:57.446582379+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-16T18:14:57.452116447+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-11-16T18:15:01.881249628+01:00","level":"INFO","msg":"stream: closing","id":"644xe4xp"}
+{"time":"2025-11-16T18:15:01.88144783+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-11-16T18:15:01.998830557+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-11-16T18:15:02.186677082+01:00","level":"WARN","msg":"No job ingredients found, not creating job artifact"}
+{"time":"2025-11-16T18:15:02.186697498+01:00","level":"WARN","msg":"No source type found, not creating job artifact"}
+{"time":"2025-11-16T18:15:02.186703514+01:00","level":"INFO","msg":"sender: sendDefer: no job artifact to save"}
+{"time":"2025-11-16T18:15:02.94507404+01:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"644xe4xp"}}
+{"time":"2025-11-16T18:15:02.945154357+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"644xe4xp"}}
+{"time":"2025-11-16T18:15:02.94518402+01:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"644xe4xp"}}
+{"time":"2025-11-16T18:15:02.946483884+01:00","level":"INFO","msg":"stream: closed","id":"644xe4xp"}

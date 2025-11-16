@@ -11,6 +11,7 @@ class GaussianNLL(tf.keras.losses.Loss):
 class CustomModel(tf.keras.Model):
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
+    self.nll = GaussianNLL()
     self.loss_tracker = tf.keras.metrics.Mean(name="loss")
     self.mae_metric = tf.keras.metrics.MeanAbsoluteError(name="mae")
     self.mse_metric = tf.keras.metrics.MeanSquaredError(name="mse")
@@ -21,7 +22,7 @@ class CustomModel(tf.keras.Model):
     with tf.GradientTape() as tape:
         # Forward pass.
         predictions = self(image, training=True)
-        loss_value = GaussianNLL(y_true = target, y_pred = predictions)
+        loss_value = self.nll(target, predictions)
         
     # Compute gradients and update weights
     trainable_vars = self.trainable_variables
@@ -29,8 +30,8 @@ class CustomModel(tf.keras.Model):
     self.optimizer.apply_gradients(zip(grads, trainable_vars))
     # Update metrics
     self.loss_tracker.update_state(loss_value)
-    self.mae_metric.update_state(target, predictions)
-    self.mse_metric.update_state(target, predictions)
+    self.mae_metric.update_state(target, predictions[...,0])
+    self.mse_metric.update_state(target, predictions[...,0])
     # Return a dict mapping metric names to current value
     return {"loss": self.loss_tracker.result(), "mae": self.mae_metric.result(), "mse": self.mse_metric.result()}
 
@@ -43,8 +44,8 @@ class CustomModel(tf.keras.Model):
     loss_value = tf.keras.losses.MeanSquaredError()(y_true=target, y_pred=predictions)
     # Update metrics
     self.loss_tracker.update_state(loss_value)
-    self.mae_metric.update_state(target, predictions)
-    self.mse_metric.update_state(target, predictions)
+    self.mae_metric.update_state(target, predictions[...,0])
+    self.mse_metric.update_state(target, predictions[...,0])
     # Return a dict mapping metric names to current value
     return {"loss": self.loss_tracker.result(), "mae": self.mae_metric.result(), "mse": self.mse_metric.result()}
 

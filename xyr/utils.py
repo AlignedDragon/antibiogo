@@ -12,10 +12,10 @@ img_pth = path.join(root_path,"patches")
 radii = path.join(root_path, "radii.json")
 
 
-train_dir = path.join(root_path,"tf_record/Train")
-val_dir = path.join(root_path,"tf_record/Valid")
-test_dir = path.join(root_path,"tf_record/Test")
-orig_train_dir = path.join(root_path,"tf_record/Original_Train")
+train_dir = path.join(root_path,"tf_record_xyr/Train")
+val_dir = path.join(root_path,"tf_record_xyr/Valid")
+test_dir = path.join(root_path,"tf_record_xyr/Test")
+orig_train_dir = path.join(root_path,"tf_record_xyr/Original_Train")
 
 
 tf_global_seed = 1234
@@ -54,26 +54,49 @@ def display(display_list:List)->None:
 
 
 def drawer(image: list, tars: list):
-  # Assuming target is [x, y, r] from model prediction
+  # tars is [true_R, (mean_R, std_R)]
   colors = [(0,255,0), (255, 0, 0)]
-  for i in range(len(tars)):
-    # print(tars)
-    circle = tars[i]
-    # print(circle)
-    x, y, r = circle  # center (x, y) and radius (r)
+  image = image.convert("RGBA")
 
-    # Convert to top-left and bottom-right coordinates
-    if x>1 and y>1:
-      top_left = (x - r, y - r)
-      bottom_right = (x + r, y + r)
+  true_R = tars[0].numpy()
+  x, y = 128, 128
 
-      # Ensure the coordinates are in the correct order
-      top_left = (min(top_left[0], bottom_right[0]), min(top_left[1], bottom_right[1]))
-      bottom_right = (max(top_left[0], bottom_right[0]), max(top_left[1], bottom_right[1]))
+  # draw the base truth
+  r = true_R
+  top_left = (x - r, y - r)
+  bottom_right = (x + r, y + r)
+
+  # Draw ellipse
+  draw = ImageDraw.Draw(image)
+  draw.ellipse([top_left, bottom_right], outline=colors[0], width=3)
+
+  if len(tars)> 1:
+    mean_R, std_R = tars[1][0], tars[1][1]
+    if mean_R>1 and std_R>1:
+      r = mean_R
+
+      # drawing stadard deviation
+      overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
+      od = ImageDraw.Draw(overlay)
+
+      outer_r = r + std_R
+      inner_r = max(0, r - std_R)  # avoid negative
+
+      bbox_outer = (x - outer_r, y - outer_r, x + outer_r, y + outer_r)
+      bbox_inner = (x - inner_r, y - inner_r, x + inner_r, y + inner_r)
+
+      # draw filled outer ellipse with alpha, then punch hole by drawing transparent inner ellipse
+      od.ellipse(bbox_outer, fill=(255, 0, 0, 50))   # red with alpha (0-255)
+      od.ellipse(bbox_inner, fill=(0, 0, 0, 0))       # makes the hole transparent
+
+      # composite overlay onto original image
+      image = Image.alpha_composite(image, overlay)
 
       # Draw ellipse
+      top_left = (x - r, y - r)
+      bottom_right = (x + r, y + r)
       draw = ImageDraw.Draw(image)
-      draw.ellipse([top_left, bottom_right], outline=colors[i], width=3)
+      draw.ellipse([top_left, bottom_right], outline=colors[1], width=3)
   return image
 
 

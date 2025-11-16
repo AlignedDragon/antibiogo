@@ -1,0 +1,14 @@
+[<tf.Tensor: shape=(), dtype=float32, numpy=79.13702392578125>]
+Traceback (most recent call last):
+  File "/users/msayfiddinov/antibiogo/xyr/main.py", line 27, in <module>
+    model_history = model.fit(orig_train_batches,
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/users/msayfiddinov/miniconda3/envs/anti/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/users/msayfiddinov/antibiogo/xyr/callback.py", line 27, in on_train_begin
+    wandb.log({"Prediction": [wandb.Image(drawer(array_to_img(sample_image), [sample_target]), caption="Base truth"),
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/users/msayfiddinov/antibiogo/xyr/utils.py", line 68, in drawer
+    top_left = (x - r, y - r)
+                ~~^~~
+TypeError: unsupported operand type(s) for -: 'int' and 'method'
