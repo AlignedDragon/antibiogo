@@ -1,5 +1,11 @@
-- keras_cv add it to requirements.txt
-- get yolo data ready
-- get data for xyr and train
+- split the data inside the folder itself so that, both yolo and xyr get same splits for train, val, test. otherwise, at the end test might be corrupted
+
+- test with slicer
 - how to evaluate the model? we get max_allowed limit. we get variance -> x percent sure the radisu is inside max_allowed
 - which percent certainity is good enough? chosen based on the data at hand. 
+
+? GaussianNLL might fail -> copy torch implementation
+? maybe freeze some parameters to avoid overfitting
+? there were no problems with annotation lists having different lengths for yolo
+
+! xyr model output two values, [0] is the mean [1] is the standard deviation

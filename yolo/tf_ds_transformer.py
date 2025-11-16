@@ -1,5 +1,4 @@
-# max_boxes=16  line 59
-
+# max_boxes=17  line 59 might be troublesome
 
 import os
 from numpy.random import seed as seednp
@@ -56,7 +55,7 @@ def load_dataset(image_path, classes, bbox):
         "boxes": tf.cast(bbox/(1024/IMG_SIZE), dtype = tf.float32),
     }
     return image, bounding_box.to_dense(
-        bounding_boxes, max_boxes=16
+        bounding_boxes, max_boxes=17
     )
 
 ready_ds = data.map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)

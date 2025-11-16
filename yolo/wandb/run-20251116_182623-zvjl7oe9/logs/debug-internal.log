@@ -1,0 +1,11 @@
+{"time":"2025-11-16T18:26:23.901412125+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:26:23.901442492+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/yolo/wandb/run-20251116_182623-zvjl7oe9/logs/debug-core.log"}
+{"time":"2025-11-16T18:26:23.902551131+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T18:26:23.902571963+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/yolo/wandb/run-20251116_182623-zvjl7oe9/logs/debug-core.log"}
+{"time":"2025-11-16T18:26:24.107220033+01:00","level":"INFO","msg":"created new stream","id":"zvjl7oe9"}
+{"time":"2025-11-16T18:26:24.107274655+01:00","level":"INFO","msg":"stream: started","id":"zvjl7oe9"}
+{"time":"2025-11-16T18:26:24.107286975+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"zvjl7oe9"}}
+{"time":"2025-11-16T18:26:24.107281439+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"zvjl7oe9"}}
+{"time":"2025-11-16T18:26:24.107292511+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"zvjl7oe9"}}
+{"time":"2025-11-16T18:26:24.437410917+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-16T18:26:24.443662698+01:00","level":"INFO","msg":"Starting system monitor"}

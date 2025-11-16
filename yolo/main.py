@@ -13,11 +13,11 @@ tf.config.run_functions_eagerly(True)
 
 
 if __name__=="__main__":
-    EPOCHS = 500
+    EPOCHS = 200
     # Launch an experiment
     wandb.init(
         project="yolo",
-        name= f"{'test':<10}|{date.today()}",
+        name= f"yolo |{date.today()}",
         config={
             "epoch": EPOCHS
         },
@@ -35,7 +35,7 @@ if __name__=="__main__":
                                          keras_cv.callbacks.PyCOCOCallback(vald_batches, bounding_box_format="center_xywh")]
                                          #,savemodel_callback,DisplayCallback()]  #+EarlyStopping_callback
                               )
-    model.save('SavedModels/test.h5')
+    model.save(f'/users/msayfiddinov/scratch/antibiogo_data/SavedModels/yolo_{date.today()}.h5')
     # Mark the run as finished
     wandb.finish()
 

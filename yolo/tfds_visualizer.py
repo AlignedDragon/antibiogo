@@ -2,8 +2,9 @@ from PIL import Image, ImageDraw
 import numpy as np
 import os
 from dataloader import orig_train_batches
+from utils import root_path
 
-output_dir = '/mloscratch/sayfiddi/yolo/base_data/processed'
+output_dir = os.path.join(root_path, "visualization")
 
 def draw_boxes(image, boxes):
     # Convert numpy array to PIL Image if it's not already
@@ -54,5 +55,7 @@ for batch_idx, batch in enumerate(orig_train_batches):
         i += 1
         if i % 100 == 0:
             print(f'{i} images done')
+    if i> 100:
+        break
 
 print(f"Visualizations saved to {output_dir}")

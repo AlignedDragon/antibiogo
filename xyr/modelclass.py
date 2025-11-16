@@ -41,7 +41,7 @@ class CustomModel(tf.keras.Model):
     # Compute predictions
     predictions = self(image, training=False)
     # Compute the loss.
-    loss_value = tf.keras.losses.MeanSquaredError()(y_true=target, y_pred=predictions)
+    loss_value = tf.keras.losses.MeanSquaredError()(y_true=target, y_pred=predictions[...,0])
     # Update metrics
     self.loss_tracker.update_state(loss_value)
     self.mae_metric.update_state(target, predictions[...,0])

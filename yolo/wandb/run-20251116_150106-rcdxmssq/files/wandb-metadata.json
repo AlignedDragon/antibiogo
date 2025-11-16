@@ -1,0 +1,16 @@
+{
+  "os":  "Linux-5.14.21-150500.55.65_13.0.74-cray_shasta_c_64k-aarch64-with-glibc2.31",
+  "python":  "3.11.0",
+  "startedAt":  "2025-11-16T14:01:06.118600Z",
+  "program":  "/users/msayfiddinov/antibiogo_torch/yolo/main.py",
+  "codePath":  "yolo/main.py",
+  "git":  {
+    "commit":  "6a2d5b7b8e5437d4e0001c3e927246ac5bdfdf6a"
+  },
+  "email":  "muhammadalisayfiddinov@gmail.com",
+  "root":  "/users/msayfiddinov/antibiogo_torch/yolo",
+  "host":  "nid007656",
+  "username":  "msayfiddinov",
+  "executable":  "/users/msayfiddinov/miniconda3/envs/anti/bin/python",
+  "codePathLocal":  "main.py"
+}

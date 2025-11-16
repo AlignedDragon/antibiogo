@@ -1,0 +1,13 @@
+{"time":"2025-11-16T15:01:56.27677011+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T15:01:56.276802333+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo_torch/yolo/wandb/run-20251116_150156-jhad7as4/logs/debug-core.log"}
+{"time":"2025-11-16T15:01:56.278047507+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-16T15:01:56.278052019+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo_torch/yolo/wandb/run-20251116_150156-jhad7as4/logs/debug-core.log"}
+{"time":"2025-11-16T15:01:56.441492747+01:00","level":"INFO","msg":"created new stream","id":"jhad7as4"}
+{"time":"2025-11-16T15:01:56.441547658+01:00","level":"INFO","msg":"stream: started","id":"jhad7as4"}
+{"time":"2025-11-16T15:01:56.441563561+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"jhad7as4"}}
+{"time":"2025-11-16T15:01:56.441555945+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"jhad7as4"}}
+{"time":"2025-11-16T15:01:56.441571849+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"jhad7as4"}}
+{"time":"2025-11-16T15:01:56.791897251+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-16T15:01:56.795796511+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-11-16T15:21:58.979884205+01:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/files/apertusEvals/yolo/jhad7as4/file_stream"}
+{"time":"2025-11-16T15:21:58.981100227+01:00","level":"ERROR+4","msg":"filestream: fatal error: filestream: failed to upload: 404 Not Found path=files/apertusEvals/yolo/jhad7as4/file_stream: {\"error\":\"run yolo/jhad7as4 not found while streaming file\"}"}

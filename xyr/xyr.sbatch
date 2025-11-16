@@ -3,7 +3,7 @@
 #SBATCH --account=large-sc-2         # The account you are charged for the job
 #SBATCH --nodes=1                    # Number of compute nodes to request.
 #SBATCH --ntasks-per-node=1          # Tasks (processes) per node
-#SBATCH --time=03:00:00              # HH:MM:SS, set a time limit for this job (here 10min)
+#SBATCH --time=12:00:00              # HH:MM:SS, set a time limit for this job (here 10min)
 #SBATCH --partition=normal            # Partition to use; "debug" is usually for quick tests
 #SBATCH --mem=460000                 # Memory needed (simply set the mem of a node)
 #SBATCH --cpus-per-task=288          # CPU cores per task (simply set the number of cpus a node has)

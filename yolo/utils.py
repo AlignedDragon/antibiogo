@@ -10,17 +10,16 @@ import numpy as np
 
 
 # root_path = getenv("ROOT_DIR")
-root_path = '/mloscratch/sayfiddi/yolo'
-img_pth = path.join(root_path,"base_data/ready")
-annot_path = path.join(root_path, 'base_data/annot.json')
-classes_path = path.join(root_path, 'base_data/classes.json')
+root_path = '/users/msayfiddinov/scratch/antibiogo_data/'
+img_pth = path.join(root_path, 'complete')
+annot_path = path.join(root_path, 'annot.json')
+classes_path = path.join(root_path, 'classes.json')
 
 
-
-train_dir = path.join(root_path,"tf_record/Train")
-val_dir = path.join(root_path,"tf_record/Valid")
-test_dir = path.join(root_path,"tf_record/Test")
-orig_train_dir = path.join(root_path,"tf_record/Original_Train")
+train_dir = path.join(root_path,"tf_record_yolo/Train")
+val_dir = path.join(root_path,"tf_record_yolo/Valid")
+test_dir = path.join(root_path,"tf_record_yolo/Test")
+orig_train_dir = path.join(root_path,"tf_record_yolo/Original_Train")
 
 tf_global_seed = 1234
 np_seed = 1234
