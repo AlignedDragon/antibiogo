@@ -1,6 +1,3 @@
-# checkpoint filepath save
-
-
 """
 * callback.py contains callsbacks that are needed for saving the models and predictions during training.
 
@@ -17,7 +14,7 @@ for images, target in single_batch:
 
 # Callbacks 
 #EarlyStopping_callback = tf.keras.callbacks.EarlyStopping(patience=3)
-checkpoint_filepath = 'BaseModel/checkpoint.model.keras'
+checkpoint_filepath = '/users/msayfiddinov/scratch/antibiogo_data/SavedModels/checkpoint.model.keras'
 savemodel_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_filepath,
                                                         monitor='val_loss',
                                                         save_best_only=True,

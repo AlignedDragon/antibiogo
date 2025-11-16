@@ -1,5 +1,3 @@
-# correct path variables
-
 from typing import List
 import matplotlib.pyplot as plt
 from tensorflow.keras.utils import array_to_img
@@ -9,14 +7,16 @@ from PIL import Image, ImageDraw
 import numpy as np
 
 
-# root_path = getenv("ROOT_DIR")
-root_path = '/mloscratch/sayfiddi/xyr'
-img_pth = path.join(root_path,"xyr_data")
+root_path = '/users/msayfiddinov/scratch/antibiogo_data'
+img_pth = path.join(root_path,"patches")
+radii = path.join(root_path, "radii.json")
+
+
 train_dir = path.join(root_path,"tf_record/Train")
 val_dir = path.join(root_path,"tf_record/Valid")
 test_dir = path.join(root_path,"tf_record/Test")
 orig_train_dir = path.join(root_path,"tf_record/Original_Train")
-corDictDir = '/mloscratch/sayfiddi/xyr/xyr_data/frame_corr.json'
+
 
 tf_global_seed = 1234
 np_seed = 1234
@@ -82,8 +82,6 @@ def targetize(pred_target):
   pred_target = pred_target.tolist()
   return pred_target
   
-
-
   
 # Instantiate an optimizer.
 optimAdam = tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE)

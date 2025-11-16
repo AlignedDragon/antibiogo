@@ -1,6 +1,3 @@
-# model.save path correct
-
-
 from dataloader import orig_train_batches, vald_batches, single_batch
 from xyr_model import model
 from callback import DisplayCallback # ,EarlyStopping_callback, savemodel_callback, checkpoint_filepath
@@ -17,8 +14,8 @@ if __name__=="__main__":
     EPOCHS = 100
     # Launch an experiment
     wandb.init(
-        project="detector",
-        name= f"{date.today()}",
+        project="yolo",
+        name= f"xyr |{date.today()}",
         config={
             "epoch": EPOCHS
         },
@@ -34,5 +31,5 @@ if __name__=="__main__":
                               callbacks=[DisplayCallback(),wandb_callbacks]  # , +EarlyStopping_callback
                               )
     # Mark the run as finished
-    model.save(f'/mloscratch/sayfiddi/hybrid/SavedModels/modelV3Small.h5')
+    model.save(f'/users/msayfiddinov/scratch/antibiogo_data/SavedModels/xyr_{date.today()}.h5')
     # wandb.finish()

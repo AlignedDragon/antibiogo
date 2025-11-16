@@ -1,13 +1,12 @@
 import os
-
 from numpy.random import seed as seednp
 import tensorflow as tf
 from typing import Tuple
 from pathlib import Path
 from os import listdir
 import json
-from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE, shuffle_data_seed, tf_global_seed, np_seed, img_pth, train_dir, \
-    val_dir, test_dir, orig_train_dir, corDictDir
+from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE, shuffle_data_seed, tf_global_seed, np_seed, img_pth, radii, train_dir, \
+    val_dir, test_dir, orig_train_dir
 
 tf.random.set_seed(tf_global_seed)
 seednp(np_seed)
@@ -31,6 +30,7 @@ def normalize(input_img: tf.Tensor) -> tf.Tensor:
 def load_image(input_img: tf.string, corr:dict) -> tuple[tf.Tensor, tf.Tensor]:
     if isinstance(input_img, tf.Tensor):
         input_img = input_img.numpy().decode('utf-8')
+
     filename = os.path.basename(input_img)
     target = tf.convert_to_tensor(corr[filename]/(256/IMG_SIZE), dtype=tf.float32)
 
@@ -43,7 +43,7 @@ def load_image(input_img: tf.string, corr:dict) -> tuple[tf.Tensor, tf.Tensor]:
 
 @tf.py_function(Tout= (tf.float32, tf.float32))
 def process_path(image_path: str) -> Tuple:
-    corr = json.load(open(corDictDir))
+    corr = json.load(open(radii))
     img, target = load_image(image_path, corr)
     return img, target
 
