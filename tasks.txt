@@ -1,11 +1,31 @@
-- split the data inside the folder itself so that, both yolo and xyr get same splits for train, val, test. otherwise, at the end test might be corrupted
+- checkpoint models:
+          # Alternatively, one could checkpoint just the model weights as -
+          checkpoint_filepath = '/tmp/ckpt/checkpoint.weights.h5'
+          model_checkpoint_callback = keras.callbacks.ModelCheckpoint(
+              filepath=checkpoint_filepath,
+              save_weights_only=True,
+              monitor='val_accuracy',
+              mode='max',
+              save_best_only=True)
 
+          # Model weights are saved at the end of every epoch, if it's the best seen
+          # so far.
+          model.fit(epochs=EPOCHS, callbacks=[model_checkpoint_callback])
+
+          # The model weights (that are considered the best) can be loaded as -
+          model.load_weights(checkpoint_filepath)
+
+- xyr is too small? get some bigger model and distill? EfficientNetV2Large with learning rate 0.0003
+- get all dependencies sorted out
+- split the data inside the folder itself so that, both yolo and xyr get same splits for train, val, test. otherwise, at the end test might be corrupted
 - test with slicer
 - how to evaluate the model? we get max_allowed limit. we get variance -> x percent sure the radisu is inside max_allowed
 - which percent certainity is good enough? chosen based on the data at hand. 
 
 ? GaussianNLL might fail -> copy torch implementation
+? YOLO having issues - maybe smaller batch size, because the size is too big
 ? maybe freeze some parameters to avoid overfitting
-? there were no problems with annotation lists having different lengths for yolo
+? if YOLO doesn't converge, have two separate models for the dish and pellets OR have assume the dish to be the same
+
 
 ! xyr model output two values, [0] is the mean [1] is the standard deviation

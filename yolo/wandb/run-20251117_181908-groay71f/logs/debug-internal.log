@@ -1,0 +1,12 @@
+{"time":"2025-11-17T18:19:08.103835387+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-17T18:19:08.103862779+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/yolo/wandb/run-20251117_181908-groay71f/logs/debug-core.log"}
+{"time":"2025-11-17T18:19:08.10500796+01:00","level":"INFO","msg":"using version","core version":"0.17.8"}
+{"time":"2025-11-17T18:19:08.105011224+01:00","level":"INFO","msg":"created symlink","path":"/users/msayfiddinov/antibiogo/yolo/wandb/run-20251117_181908-groay71f/logs/debug-core.log"}
+{"time":"2025-11-17T18:19:08.343136215+01:00","level":"INFO","msg":"created new stream","id":"groay71f"}
+{"time":"2025-11-17T18:19:08.343196757+01:00","level":"INFO","msg":"stream: started","id":"groay71f"}
+{"time":"2025-11-17T18:19:08.343209748+01:00","level":"INFO","msg":"sender: started","stream_id":{"value":"groay71f"}}
+{"time":"2025-11-17T18:19:08.343203029+01:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"groay71f"}}
+{"time":"2025-11-17T18:19:08.34322466+01:00","level":"INFO","msg":"handler: started","stream_id":{"value":"groay71f"}}
+{"time":"2025-11-17T18:19:08.93575218+01:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-11-17T18:19:08.941985623+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-11-17T18:34:56.128433488+01:00","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/apertusEvals/yolo/groay71f/file_stream"}

@@ -8,19 +8,22 @@ from wandb.integration.keras import WandbMetricsLogger
 from datetime import date
 from utils import optimAdam, EXPR_BATCHES, EXPR_FILTERS, EXPR_WEIGHTS
 import tensorflow as tf
+import os
 
 
 if __name__=="__main__":
-    EPOCHS = 500
+    prefix = os.getenv("PREFIX")
+    EPOCHS = 40
     # Launch an experiment
     wandb.init(
         project="yolo",
-        name= f"xyr |{date.today()}",
+        name= f"{prefix}xyr |{date.today()}",
         config={
             "epoch": EPOCHS
         },
     )
     config = wandb.config
+    # model.load_weights('./checkpoints/my_checkpoint')
     # Add WandbMetricsLogger to log metrics
     wandb_callbacks =WandbMetricsLogger()
 
@@ -31,5 +34,5 @@ if __name__=="__main__":
                               callbacks=[DisplayCallback(),wandb_callbacks]  # , +EarlyStopping_callback
                               )
     # Mark the run as finished
-    model.save(f'/users/msayfiddinov/scratch/antibiogo_data/SavedModels/xyr_{date.today()}.h5')
+    model.save(f'/users/msayfiddinov/scratch/antibiogo/SavedModels/{prefix}xyr_{date.today()}.keras')
     # wandb.finish()

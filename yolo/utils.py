@@ -10,7 +10,7 @@ import numpy as np
 
 
 # root_path = getenv("ROOT_DIR")
-root_path = '/users/msayfiddinov/scratch/antibiogo_data/'
+root_path = '/users/msayfiddinov/scratch/antibiogo'
 img_pth = path.join(root_path, 'complete')
 annot_path = path.join(root_path, 'annot.json')
 classes_path = path.join(root_path, 'classes.json')
@@ -27,12 +27,14 @@ shuffle_data_seed = 12345
 initial_bias = -1.84606594
 
 
+
 # Hyper-parameters
 AUTOTUNE = tf.data.AUTOTUNE
 BUFFER_SIZE = 128
 BATCH_SIZE = 32
 LEARNING_RATE = 0.0003
 GLOBAL_CLIPNORM = 10.0
+MAX_BOXES = 17
 class_ids = ["None", "pellet", 'circular_dish', 'rectangular_dish']
 class_mapping = dict(zip(range(len(class_ids)), class_ids))
 # The required image size.

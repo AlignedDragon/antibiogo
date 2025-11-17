@@ -19,3 +19,5 @@ def xyr_model():
 
 model = xyr_model()
 model.compile(optimizer= tf.keras.optimizers.Adam(learning_rate=0.0003))
+
+print(model.summary())

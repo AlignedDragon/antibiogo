@@ -23,3 +23,4 @@ config: {'epoch': 200}
 2025-11-16 21:52:34,856 INFO    MainThread:8760 [wandb_run.py:_redirect():2374] Wrapping output streams.
 2025-11-16 21:52:34,856 INFO    MainThread:8760 [wandb_run.py:_redirect():2399] Redirects installed.
 2025-11-16 21:52:34,864 INFO    MainThread:8760 [wandb_init.py:init():894] run started, returning control to user process
+2025-11-16 22:11:35,139 WARNING MsgRouterThr:8760 [router.py:message_loop():77] message_loop has been closed

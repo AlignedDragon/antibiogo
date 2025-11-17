@@ -7,6 +7,7 @@ class GaussianNLL(tf.keras.losses.Loss):
         mu, sigma = y_pred[..., 0], y_pred[..., 1]
         sigma = tf.maximum(sigma, 1e-6)  # avoid log(0)
         return 0.5 * tf.math.log(2 * tnp.pi * sigma**2) + ((y_true - mu)**2) / (2 * sigma**2)
+        # return tf.math.log(sigma) + 0.5 * ((y_true - mu) / sigma)**2
 
 class CustomModel(tf.keras.Model):
   def __init__(self, *args, **kwargs):

@@ -7,8 +7,8 @@
 #SBATCH --partition=normal            # Partition to use; "debug" is usually for quick tests
 #SBATCH --mem=460000                 # Memory needed (simply set the mem of a node)
 #SBATCH --cpus-per-task=288          # CPU cores per task (simply set the number of cpus a node has)
-#SBATCH --output=/users/msayfiddinov/scratch/antibiogo_data/logs/yolo_%j.out  # log file for stdout, prints, et cetera
-#SBATCH --error=/users/msayfiddinov/scratch/antibiogo_data/logs/yolo_%j.err # log file for stderr, errors
+#SBATCH --output=/users/msayfiddinov/scratch/antibiogo/logs/yolo_%j.out  # log file for stdout, prints, et cetera
+#SBATCH --error=/users/msayfiddinov/scratch/antibiogo/logs/yolo_%j.err # log file for stderr, errors
 
 # Exit immediately if a command exits with a non-zero status (good practice)
 set -eo pipefail

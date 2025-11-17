@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 
 
-root_path = '/users/msayfiddinov/scratch/antibiogo_data'
+root_path = '/users/msayfiddinov/scratch/antibiogo'
 img_pth = path.join(root_path,"patches")
 radii = path.join(root_path, "radii.json")
 
@@ -28,7 +28,7 @@ initial_bias = 90
 AUTOTUNE = tf.data.AUTOTUNE
 BUFFER_SIZE = 128
 BATCH_SIZE = 32
-LEARNING_RATE = 0.0003
+LEARNING_RATE = 0.03
 # The required image size.
 
 

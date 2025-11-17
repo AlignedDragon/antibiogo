@@ -3,7 +3,6 @@ from detector import yolo as model
 import keras_cv
 from callback import DisplayCallback  # ,EarlyStopping_callback, savemodel_callback
 import wandb
-# from modelclass import model
 # Use wandb-core
 wandb.require("core")
 from wandb.integration.keras import WandbMetricsLogger
@@ -25,7 +24,7 @@ if __name__=="__main__":
     config = wandb.config
     # Add WandbMetricsLogger to log metrics
     wandb_callbacks =WandbMetricsLogger()
-    # model.load_weights('SavedModels/test.h5')
+    # model.load_weights('SavedModels/test.keras')
     model_history = model.fit(orig_train_batches,
                               epochs=config.epoch,
                               verbose = 0,
@@ -35,7 +34,7 @@ if __name__=="__main__":
                                          keras_cv.callbacks.PyCOCOCallback(vald_batches, bounding_box_format="center_xywh")]
                                          #,savemodel_callback,DisplayCallback()]  #+EarlyStopping_callback
                               )
-    model.save(f'/users/msayfiddinov/scratch/antibiogo_data/SavedModels/yolo_{date.today()}.h5')
+    model.save(f'/users/msayfiddinov/scratch/antibiogo/SavedModels/yolo_{date.today()}.keras')
     # Mark the run as finished
     wandb.finish()
 

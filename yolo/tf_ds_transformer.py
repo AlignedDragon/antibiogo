@@ -8,12 +8,12 @@ import json
 import keras_cv
 from tensorflow import keras
 
-from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE, shuffle_data_seed, tf_global_seed, np_seed, img_pth, train_dir, \
+from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE,MAX_BOXES, shuffle_data_seed, tf_global_seed, np_seed, img_pth, train_dir, \
     val_dir, test_dir, orig_train_dir, annot_path, classes_path
 
 tf.random.set_seed(tf_global_seed)
 seednp(np_seed)
-# tf.config.run_functions_eagerly(True)
+tf.config.run_functions_eagerly(True)
 
 
 vald_ratio = 0.2
@@ -33,9 +33,13 @@ for key, value in annot.items():
     classes.append(classDict[key])
     bbox.append(value)
 
-bbox = tf.ragged.constant(bbox)
-classes = tf.ragged.constant(classes)
-image_paths = tf.ragged.constant(image_paths)
+bbox = tf.constant(bbox)
+classes = tf.constant(classes)
+image_paths = tf.constant(image_paths) 
+
+# bbox = bbox.to_tensor(default_value=-1, shape=[None, MAX_BOXES, 4])
+# classes = classes.to_tensor(default_value=0, shape=[None, MAX_BOXES])
+# image_paths = image_paths.to_tensor(default_value="")
 
 data = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
 
@@ -54,9 +58,7 @@ def load_dataset(image_path, classes, bbox):
         "classes": tf.cast(classes, dtype=tf.float32),
         "boxes": tf.cast(bbox/(1024/IMG_SIZE), dtype = tf.float32),
     }
-    return image, bounding_box.to_dense(
-        bounding_boxes, max_boxes=17
-    )
+    return image, bounding_boxes
 
 ready_ds = data.map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
 
