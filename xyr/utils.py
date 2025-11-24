@@ -27,8 +27,8 @@ initial_bias = 90
 # Hyper-parameters
 AUTOTUNE = tf.data.AUTOTUNE
 BUFFER_SIZE = 128
-BATCH_SIZE = 32
-LEARNING_RATE = 0.03
+BATCH_SIZE = 2
+LEARNING_RATE = 0.003
 # The required image size.
 
 

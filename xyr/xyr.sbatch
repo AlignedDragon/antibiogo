@@ -17,5 +17,5 @@ set -eo pipefail
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate anti
 
-export PREFIX="LR_0.03_ENetB0"
+export PREFIX="LR_0.003_MN3S"
 python /users/msayfiddinov/antibiogo/xyr/main.py

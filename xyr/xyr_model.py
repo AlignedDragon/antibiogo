@@ -9,7 +9,7 @@ def xyr_model():
     _create_default_https_context = _create_unverified_context
     inputs = tf.keras.layers.Input(shape=[IMG_SIZE, IMG_SIZE, 3])
 
-    model = tf.keras.applications.EfficientNetV2B0(input_shape=[IMG_SIZE, IMG_SIZE, 3], include_top=False)
+    model = tf.keras.applications.MobileNetV3Small(input_shape=[IMG_SIZE, IMG_SIZE, 3], include_top=False)
     x = model(inputs)
     x = tf.keras.layers.GlobalMaxPooling2D()(x)
     # 0th output is mu, 1st output is sigma

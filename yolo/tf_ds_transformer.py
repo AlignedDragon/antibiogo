@@ -37,10 +37,6 @@ bbox = tf.constant(bbox)
 classes = tf.constant(classes)
 image_paths = tf.constant(image_paths) 
 
-# bbox = bbox.to_tensor(default_value=-1, shape=[None, MAX_BOXES, 4])
-# classes = classes.to_tensor(default_value=0, shape=[None, MAX_BOXES])
-# image_paths = image_paths.to_tensor(default_value="")
-
 data = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
 
 def load_image(image_path):
@@ -70,30 +66,6 @@ val_ds = ready_ds.skip(test_size).take(val_size)
 train_size = data_count - val_size - test_size
 train_ds = ready_ds.skip(test_size + val_size).take(train_size)
 orig_train = train_ds
-
-
-# augmenters = [
-#         keras_cv.layers.RandomFlip(mode="horizontal", bounding_box_format="center_xywh"),
-#         keras_cv.layers.JitteredResize(
-#             target_size=(IMG_SIZE, IMG_SIZE), scale_factor=(0.75, 1.3), bounding_box_format="center_xywh"
-#         ),
-#     ]
-# def create_augmenter_fn(augmenters):
-#     def augmenter_fn(image, bboxes):
-#         for augmenter in augmenters:
-#             # Handle image and bounding boxes separately
-#             if isinstance(augmenter, keras_cv.layers.RandomFlip):
-#                 image = augmenter(image)
-#                 # For flip, you might need to adjust bounding boxes
-#             elif isinstance(augmenter, keras_cv.layers.JitteredResize):
-#                 image, bboxes = augmenter(image, bounding_boxes=bboxes)
-#         return image, bboxes
-#
-#     return augmenter_fn
-
-# augmenter_fn = create_augmenter_fn(augmenters)
-#
-# train_ds = train_ds.map(augmenter_fn, num_parallel_calls=tf.data.AUTOTUNE)
 
 for ds, dir_path in [(orig_train, orig_train_dir), (val_ds, val_dir), (test_ds, test_dir)]:
 

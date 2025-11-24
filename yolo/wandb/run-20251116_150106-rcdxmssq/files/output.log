@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "/users/msayfiddinov/antibiogo_torch/yolo/main.py", line 35, in <module>
-    keras_cv.callbacks.PyCOCOCallback(vald_batches, bounding_box_format="center_xywh")]
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/users/msayfiddinov/miniconda3/envs/anti/lib/python3.11/site-packages/keras_cv/src/callbacks/pycoco_callback.py", line 48, in __init__
-    assert_pycocotools_installed("PyCOCOCallback")
-  File "/users/msayfiddinov/miniconda3/envs/anti/lib/python3.11/site-packages/keras_cv/src/utils/conditional_imports.py", line 68, in assert_pycocotools_installed
-    raise ImportError(
-ImportError: PyCOCOCallback requires the `pycocotools` package. Please install the package using `pip install pycocotools`.
