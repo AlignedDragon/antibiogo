@@ -1,4 +1,4 @@
-from dataloader import orig_train_batches, vald_batches, single_batch
+from dataloader import train_batches, vald_batches, single_batch
 from xyr_model import model
 from callback import DisplayCallback # ,EarlyStopping_callback, savemodel_callback, checkpoint_filepath
 import wandb
@@ -27,7 +27,7 @@ if __name__=="__main__":
     # Add WandbMetricsLogger to log metrics
     wandb_callbacks =WandbMetricsLogger()
 
-    model_history = model.fit(orig_train_batches,
+    model_history = model.fit(train_batches,
                               epochs= config.epoch,
                               verbose = 0,
                               validation_data=vald_batches,

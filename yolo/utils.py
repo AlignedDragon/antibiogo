@@ -1,5 +1,3 @@
-# path names correct, class_ids: 0 None, 1 pellet, 2 circular dish, 3 rectangular dish 
-
 from typing import List
 import matplotlib.pyplot as plt
 from tensorflow.keras.utils import array_to_img
@@ -20,9 +18,6 @@ orig_train_dir = path.join(root_path,"tf_record_yolo/Original_Train")
 tf_global_seed = 1234
 np_seed = 1234
 shuffle_data_seed = 12345
-initial_bias = -1.84606594
-
-
 
 # Hyper-parameters
 AUTOTUNE = tf.data.AUTOTUNE
@@ -33,12 +28,9 @@ GLOBAL_CLIPNORM = 10.0
 MAX_BOXES = 17
 class_ids = ["None", "pellet", 'circular_dish', 'rectangular_dish']
 class_mapping = dict(zip(range(len(class_ids)), class_ids))
+
 # The required image size.
-
-
 IMG_SIZE = 1024
-OUTPUT_CLASSES = 2
-
 
 def display(display_list:List)->None:
   """
@@ -84,17 +76,16 @@ def targetize(pred_target):
 
 
 def load_image(image_path):
-    image = tf.io.read_file(image_path)
-    image = tf.image.decode_jpeg(image, channels=3)
-    image = tf.image.resize(image, (IMG_SIZE, IMG_SIZE),method=tf.image.ResizeMethod.BILINEAR, antialias=False)
-    image = tf.cast(image, tf.float32)/255.
-    return image
+  image = tf.io.read_file(image_path)
+  image = tf.image.decode_jpeg(image, channels=3)
+  image = tf.image.resize(image, (IMG_SIZE, IMG_SIZE),method=tf.image.ResizeMethod.BILINEAR, antialias=False)
+  image = tf.cast(image, tf.float32)/255.
+  return image
 
 def load_dataset(image_path, classes, bbox):
-
-    image = load_image(image_path)
-    bounding_boxes = {
-        "classes": tf.cast(classes, dtype=tf.float32),
-        "boxes": tf.cast(bbox/(1024/IMG_SIZE), dtype = tf.float32),
-    }
-    return image, bounding_boxes
+  image = load_image(image_path)
+  bounding_boxes = {
+      "classes": tf.cast(classes, dtype=tf.float32),
+      "boxes": tf.cast(bbox/(1024/IMG_SIZE), dtype = tf.float32),
+  }
+  return image, bounding_boxes

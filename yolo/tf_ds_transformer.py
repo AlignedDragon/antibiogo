@@ -7,15 +7,11 @@ from tqdm import tqdm
 from utils import BUFFER_SIZE, shuffle_data_seed, train_dir, \
     val_dir, test_dir, orig_train_dir,root_path, load_dataset
 
-
-train = tf.data.Dataset.from_tensor_slices([1])
-val = tf.data.Dataset.from_tensor_slices([1])
-test = tf.data.Dataset.from_tensor_slices([1])
-database_dir = os.path.join(root_path, "yolo_database")
 # assuming that database has only train, val and test folders
 # inside the database each folder must have images, annot.json, and classes.json
-data_dict = {"train": train, "val": val, "test":test}
+database_dir = os.path.join(root_path, "yolo_database")
 folders = os.listdir(database_dir)
+data_dict = {}
 
 for f in tqdm(folders):
     img_pth = os.path.join(*[database_dir, f, "images"])
@@ -42,6 +38,9 @@ for f in tqdm(folders):
     data_dict[f] = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
     data_dict[f] = data_dict[f].map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
 
+train = data_dict["train"]
+val = data_dict["val"]
+test = data_dict["test"]
 
 for ds, dir_path in [(train, orig_train_dir), (val, val_dir), (test, test_dir)]:
 

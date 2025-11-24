@@ -1,6 +1,6 @@
-- split the data inside the folder itself so that, both yolo and xyr get same splits for train, val, test. otherwise, at the end test might be corrupted
-- set wandb cache
+- xyr grad check
 - checkpoint models
+- set wandb cache
 
 - test with slicer
 - how to evaluate the model? we get max_allowed limit. we get variance -> x percent sure the radisu is inside max_allowed

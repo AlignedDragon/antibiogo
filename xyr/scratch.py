@@ -1,49 +1,65 @@
-import json
-import os 
-from utils import root_path, IMG_SIZE
-import PIL
-
-zones = os.path.join(root_path, "ihz_1024.json")
-images = os.path.join(root_path, "complete")
-patches = os.path.join(root_path, "patches")
-radii = {}
-
-with open(zones) as f:
-    zones = json.load(f)
-
-def padding(img_name, expected_size):
-    img = PIL.Image.open(os.path.join(images, img_name))
-    desired_size = expected_size
-
-    delta_width = desired_size[0] - img.size[0]
-    delta_height = desired_size[1] - img.size[1]
-
-    pad_width = delta_width // 2
-    pad_height = delta_height // 2
-
-    padding = (pad_width, pad_height, delta_width - pad_width, delta_height - pad_height)
-    return PIL.ImageOps.expand(img, padding)
-
-# some need padding for 256 256
-count = 0
-for k, v_list in zones.items():
-    img = padding(k, [1024 + 256, 1024 + 256])
-
-    for i in range(len(v_list)):
-        x,y,r,d = v_list[i][0] + 128, v_list[i][1] + 128, v_list[i][2], 128
-        area = (x-d, y-d, x+d, y+d)
-        img.crop(area).save(str(os.path.join(patches, f"{k.split('.')[0]}_{i}.jpg")), "JPEG")
-        radii[f"{k.split('.')[0]}_{i}.jpg"] = r
+import os, json
+import tensorflow as tf
+from tqdm import tqdm
+from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE, shuffle_data_seed, root_path, \
+    train_dir, val_dir, test_dir
 
 
-    count +=1
-    if count % 10 == 0:
-        print(f"{count} - done")
-    if count > 100:
-        break
+def normalize(img):
+    img = -1 + tf.cast(img, tf.float32) / 127.5
+    return img
 
-with open(os.path.join(root_path, "radii.json"), 'w') as f:
-    json.dump(radii, f)
+def get_lookup_table(all_keys, all_values):
+    """Creates a static lookup table inside the TF graph."""
+    keys_tensor = tf.constant(all_keys)
+    vals_tensor = tf.constant(all_values)
+    initializer = tf.lookup.KeyValueTensorInitializer(keys_tensor, vals_tensor)
+    # default_value -1.0 handles missing keys safely
+    return tf.lookup.StaticHashTable(initializer, default_value=-1.0) 
 
+# 2. Pre-load all metadata into Python lists first
+database = os.path.join(root_path, "xyr_database")
+global_keys = []
+global_values = []
 
+# We iterate first just to build the global dictionary
+print("Building Lookup Table...")
+for split in ["train", "val", "test"]:
+    radii_path = os.path.join(database, split, "radii.json")
+    with open(radii_path) as f:
+        data = json.load(f)
+        for k, v in data.items():
+            global_keys.append(k)
+            global_values.append(v / (256 / IMG_SIZE))
 
+# 3. Create the Graph Table
+lookup_table = get_lookup_table(global_keys, global_values)
+
+def load_and_process(file_path):
+    parts = tf.strings.split(file_path, os.sep)
+    filename = parts[-1] 
+    target = lookup_table.lookup(filename)
+    img = tf.io.read_file(file_path)
+    img = tf.io.decode_jpeg(img)
+    img = tf.image.resize(img, (IMG_SIZE, IMG_SIZE), method='bilinear')
+    img = normalize(img)
+    
+    return img, target
+
+# 4. Build and Save Datasets
+data_dict = {}
+for folder in tqdm(os.listdir(database)):
+    img_path_pattern = os.path.join(database, folder, "images", "*")
+    ds = tf.data.Dataset.list_files(img_path_pattern, shuffle=False)
+    data_dict[folder] = ds.map(load_and_process, num_parallel_calls=AUTOTUNE)
+
+train = data_dict["train"]
+val = data_dict["val"]
+test = data_dict["test"]
+    
+for ds, dir_path in tqdm([(train, train_dir), (val, val_dir), (test, test_dir)]):
+    os.makedirs(dir_path, exist_ok=True)
+    dir_files = os.listdir(dir_path)
+    if len(dir_files) > 0:
+        raise ValueError(f"The directory {dir_path} exists and is not empty.")
+    ds.save(dir_path)

@@ -1,38 +1,33 @@
 from typing import List
 import matplotlib.pyplot as plt
 from tensorflow.keras.utils import array_to_img
-from os import path,getenv
 import tensorflow as tf
 from PIL import Image, ImageDraw
 import numpy as np
+import json, os
 
 
 root_path = '/users/msayfiddinov/scratch/antibiogo'
-img_pth = path.join(root_path,"patches")
-radii = path.join(root_path, "radii.json")
 
-
-train_dir = path.join(root_path,"tf_record_xyr/Train")
-val_dir = path.join(root_path,"tf_record_xyr/Valid")
-test_dir = path.join(root_path,"tf_record_xyr/Test")
-orig_train_dir = path.join(root_path,"tf_record_xyr/Original_Train")
+train_dir = os.path.join(root_path,"tf_record_xyr/Train")
+val_dir = os.path.join(root_path,"tf_record_xyr/Valid")
+test_dir = os.path.join(root_path,"tf_record_xyr/Test")
 
 
 tf_global_seed = 1234
 np_seed = 1234
 shuffle_data_seed = 12345
-initial_bias = 90
-
 
 # Hyper-parameters
 AUTOTUNE = tf.data.AUTOTUNE
 BUFFER_SIZE = 128
-BATCH_SIZE = 2
+BATCH_SIZE = 32
 LEARNING_RATE = 0.003
 # The required image size.
 
 
 IMG_SIZE = 256
+initial_bias = 0
 EXPR_BATCHES = [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 32, 64, 128, 256, 512]
 EXPR_FILTERS = [8, 16, 32, 64]
 EXPR_WEIGHTS = [0.1, 0.01, 0.001, 0.0001]

@@ -1,5 +1,5 @@
 # why ssl contexts are needed?
-
+# mobilenet v3small 3.6MBs
 from ssl import _create_default_https_context, _create_unverified_context
 from utils import IMG_SIZE, initial_bias
 import tensorflow as tf
@@ -13,7 +13,7 @@ def xyr_model():
     x = model(inputs)
     x = tf.keras.layers.GlobalMaxPooling2D()(x)
     # 0th output is mu, 1st output is sigma
-    outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(90))(x)  
+    outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(initial_bias))(x)  
     return CustomModel(inputs = inputs, outputs = outputs)
 
 

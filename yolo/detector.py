@@ -1,3 +1,4 @@
+# 13 MB size model
 import tensorflow as tf
 import keras_cv
 from utils import class_mapping
@@ -25,4 +26,4 @@ yolo.compile(
 )
 # print(yolo.input_shape)
 # print(yolo.inputs)
-# print(yolo.summary())
+print(yolo.summary())
