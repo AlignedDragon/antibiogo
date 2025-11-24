@@ -11,10 +11,6 @@ import numpy as np
 
 # root_path = getenv("ROOT_DIR")
 root_path = '/users/msayfiddinov/scratch/antibiogo'
-img_pth = path.join(root_path, 'complete')
-annot_path = path.join(root_path, 'annot.json')
-classes_path = path.join(root_path, 'classes.json')
-
 
 train_dir = path.join(root_path,"tf_record_yolo/Train")
 val_dir = path.join(root_path,"tf_record_yolo/Valid")
@@ -87,4 +83,18 @@ def targetize(pred_target):
   return pred_target
 
 
+def load_image(image_path):
+    image = tf.io.read_file(image_path)
+    image = tf.image.decode_jpeg(image, channels=3)
+    image = tf.image.resize(image, (IMG_SIZE, IMG_SIZE),method=tf.image.ResizeMethod.BILINEAR, antialias=False)
+    image = tf.cast(image, tf.float32)/255.
+    return image
 
+def load_dataset(image_path, classes, bbox):
+
+    image = load_image(image_path)
+    bounding_boxes = {
+        "classes": tf.cast(classes, dtype=tf.float32),
+        "boxes": tf.cast(bbox/(1024/IMG_SIZE), dtype = tf.float32),
+    }
+    return image, bounding_boxes

@@ -1,73 +1,49 @@
-# max_boxes=17  line 59 might be troublesome
-
-import os
+import os, json
 from numpy.random import seed as seednp
-from keras_cv import bounding_box
 import tensorflow as tf
-import json
 import keras_cv
-from tensorflow import keras
+from tqdm import tqdm
 
-from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE,MAX_BOXES, shuffle_data_seed, tf_global_seed, np_seed, img_pth, train_dir, \
-    val_dir, test_dir, orig_train_dir, annot_path, classes_path
-
-tf.random.set_seed(tf_global_seed)
-seednp(np_seed)
-tf.config.run_functions_eagerly(True)
+from utils import BUFFER_SIZE, shuffle_data_seed, train_dir, \
+    val_dir, test_dir, orig_train_dir,root_path, load_dataset
 
 
-vald_ratio = 0.2
-test_ratio = 0.1
+train = tf.data.Dataset.from_tensor_slices([1])
+val = tf.data.Dataset.from_tensor_slices([1])
+test = tf.data.Dataset.from_tensor_slices([1])
+database_dir = os.path.join(root_path, "yolo_database")
+# assuming that database has only train, val and test folders
+# inside the database each folder must have images, annot.json, and classes.json
+data_dict = {"train": train, "val": val, "test":test}
+folders = os.listdir(database_dir)
+
+for f in tqdm(folders):
+    img_pth = os.path.join(*[database_dir, f, "images"])
+    annot_path = os.path.join(*[database_dir, f, "annot.json"])
+    classes_path = os.path.join(*[database_dir, f, "classes.json"])
+    
+    annot = json.load(open(annot_path))
+    classDict = json.load(open(classes_path))
+    data_count = len(annot)
+
+    bbox = []
+    classes = []
+    image_paths = []
+
+    for key, value in annot.items():
+        image_paths.append(os.path.join(img_pth, key))
+        classes.append(classDict[key])
+        bbox.append(value)
+
+    bbox = tf.constant(bbox)
+    classes = tf.constant(classes)
+    image_paths = tf.constant(image_paths) 
+
+    data_dict[f] = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
+    data_dict[f] = data_dict[f].map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
 
 
-annot = json.load(open(annot_path))
-classDict = json.load(open(classes_path))
-data_count = len(annot)
-
-bbox = []
-classes = []
-image_paths = []
-
-for key, value in annot.items():
-    image_paths.append(os.path.join(img_pth, key))
-    classes.append(classDict[key])
-    bbox.append(value)
-
-bbox = tf.constant(bbox)
-classes = tf.constant(classes)
-image_paths = tf.constant(image_paths) 
-
-data = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
-
-def load_image(image_path):
-    image = tf.io.read_file(image_path)
-    image = tf.image.decode_jpeg(image, channels=3)
-    image = tf.image.resize(image, (IMG_SIZE, IMG_SIZE),method=tf.image.ResizeMethod.BILINEAR, antialias=False)
-    image = tf.cast(image, tf.float32)/255.
-    return image
-
-
-def load_dataset(image_path, classes, bbox):
-
-    image = load_image(image_path)
-    bounding_boxes = {
-        "classes": tf.cast(classes, dtype=tf.float32),
-        "boxes": tf.cast(bbox/(1024/IMG_SIZE), dtype = tf.float32),
-    }
-    return image, bounding_boxes
-
-ready_ds = data.map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
-
-
-test_size = int(data_count * test_ratio)
-test_ds = ready_ds.take(test_size)
-val_size = int(data_count * vald_ratio)
-val_ds = ready_ds.skip(test_size).take(val_size)
-train_size = data_count - val_size - test_size
-train_ds = ready_ds.skip(test_size + val_size).take(train_size)
-orig_train = train_ds
-
-for ds, dir_path in [(orig_train, orig_train_dir), (val_ds, val_dir), (test_ds, test_dir)]:
+for ds, dir_path in [(train, orig_train_dir), (val, val_dir), (test, test_dir)]:
 
     os.makedirs(dir_path, exist_ok=True)
     dir_files = os.listdir(dir_path)
