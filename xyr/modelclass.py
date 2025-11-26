@@ -1,14 +1,54 @@
 import tensorflow as tf
 tf.config.run_functions_eagerly(True)
-from tensorflow.experimental import numpy as tnp
+import numpy as np
+
+
+# class gaussian_nll(tf.keras.losses.Loss):
+#     """Keras implmementation of multivariate Gaussian negative loglikelihood loss function. 
+#     This implementation implies diagonal covariance matrix.
+    
+#     Parameters
+#     ----------
+#     ytrue: tf.tensor of shape [n_samples, n_dims]
+#         ground truth values
+#     ypreds: tf.tensor of shape [n_samples, n_dims*2]
+#         predicted mu and logsigma values (e.g. by your neural network)
+        
+#     Returns
+#     -------
+#     neg_log_likelihood: float
+#         negative loglikelihood averaged over samples
+        
+#     This loss can then be used as a target loss for any keras model, e.g.:
+#         model.compile(loss=gaussian_nll, optimizer='Adam') 
+    
+#     """
+#     def call(self, ytrue, ypreds):
+#       n_dims = int(int(ypreds.shape[1])/2)
+#       mu = ypreds[:, 0:n_dims]
+#       logsigma = ypreds[:, n_dims:]
+      
+#       mse = -0.5*tf.math.reduce_sum(tf.math.square((ytrue-mu)/tf.math.exp(logsigma)),axis=1)
+#       sigma_trace = -tf.math.reduce_sum(logsigma, axis=1)
+#       log2pi = -0.5*n_dims*np.log(2*np.pi)
+      
+#       log_likelihood = mse+sigma_trace+log2pi
+
+#       return tf.math.reduce_mean(-log_likelihood)
+
 
 class GaussianNLL(tf.keras.losses.Loss):
-    def call(self, y_true, y_pred):
-        mu, sigma = y_pred[..., 0], y_pred[..., 1]
-        sigma = tf.maximum(sigma, 1e-6)  # avoid log(0)
-        return 0.5 * tf.math.log(2 * tnp.pi * sigma**2) + ((y_true - mu)**2) / (2 * sigma**2)
-        # return tf.math.log(sigma) + 0.5 * ((y_true - mu) / sigma)**2
+    def __init__(self, name="Gaussian_NLL", **kwargs):
+       super().__init__(name=name, **kwargs)
+       self.half_log2pi = 0.5 * tf.math.log(2 * np.pi)
 
+    def call(self, y_true, y_pred):
+        mu, logsigma = y_pred[..., 0], y_pred[..., 1]
+        logsigma = tf.clip_by_value(logsigma, -2.0, 5.0) # for numerical stability
+        sigma = tf.math.exp(logsigma)  # avoid log(0)
+        return  self.half_log2pi + logsigma + 0.5*tf.math.square((y_true - mu)/sigma)
+
+    
 class CustomModel(tf.keras.Model):
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)

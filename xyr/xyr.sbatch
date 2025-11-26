@@ -3,7 +3,7 @@
 #SBATCH --account=large-sc-2         # The account you are charged for the job
 #SBATCH --nodes=1                    # Number of compute nodes to request.
 #SBATCH --ntasks-per-node=1          # Tasks (processes) per node
-#SBATCH --time=11:59:00              # HH:MM:SS, set a time limit for this job (here 10min)
+#SBATCH --time=1:59:00              # HH:MM:SS, set a time limit for this job (here 10min)
 #SBATCH --partition=normal            # Partition to use; "debug" is usually for quick tests
 #SBATCH --mem=460000                 # Memory needed (simply set the mem of a node)
 #SBATCH --cpus-per-task=288          # CPU cores per task (simply set the number of cpus a node has)
@@ -17,5 +17,7 @@ set -eo pipefail
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate anti
 
-export PREFIX="LR_0.003_MN3S"
+# to separate model names so that they don't overwrite at the end
+# model is saved in $PREFIX/xyr.keras form inside ExperimentModels
+export FOLDER_PREFIX="Logsigma"
 python /users/msayfiddinov/antibiogo/xyr/main.py

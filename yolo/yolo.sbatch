@@ -17,5 +17,8 @@ set -eo pipefail
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate anti
 
+# folder separate model names so that they don't overwrite at the end
+# model is saved in $PREFIX/yolo.keras form inside ExperimentModels
+export FOLDER_PREFIX="yolo_mix"
 
 python /users/msayfiddinov/antibiogo/yolo/main.py

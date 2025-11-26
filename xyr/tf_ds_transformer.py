@@ -48,10 +48,10 @@ def load_and_process(file_path):
 
 # 4. Build and Save Datasets
 data_dict = {}
-for folder in tqdm(os.listdir(database)):
-    img_path_pattern = os.path.join(database, folder, "images", "*")
+for split in tqdm(os.listdir(database)):
+    img_path_pattern = os.path.join(database, split, "images", "*")
     ds = tf.data.Dataset.list_files(img_path_pattern, shuffle=False)
-    data_dict[folder] = ds.map(load_and_process, num_parallel_calls=AUTOTUNE)
+    data_dict[split] = ds.map(load_and_process, num_parallel_calls=AUTOTUNE)
 
 train = data_dict["train"]
 val = data_dict["val"]

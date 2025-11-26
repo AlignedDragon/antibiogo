@@ -1,13 +1,13 @@
-- xyr grad check
-- checkpoint models
-- set wandb cache
+- stop and think what is happening at all?
+- add a little more force to make it converge for radius -> mse loss for radius
+- using Sergey's nll with changes to modelclass and utils line 69 np.exp()
+
 
 - test with slicer
 - how to evaluate the model? we get max_allowed limit. we get variance -> x percent sure the radisu is inside max_allowed
 - which percent certainity is good enough? chosen based on the data at hand. 
 
 ? GaussianNLL might fail -> copy torch implementation
-? YOLO having issues - maybe smaller batch size, because the size is too big
 ? maybe freeze some parameters to avoid overfitting
 ? if YOLO doesn't converge, have two separate models for the dish and pellets OR have assume the dish to be the same
 

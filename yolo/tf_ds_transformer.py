@@ -10,13 +10,12 @@ from utils import BUFFER_SIZE, shuffle_data_seed, train_dir, \
 # assuming that database has only train, val and test folders
 # inside the database each folder must have images, annot.json, and classes.json
 database_dir = os.path.join(root_path, "yolo_database")
-folders = os.listdir(database_dir)
 data_dict = {}
 
-for f in tqdm(folders):
-    img_pth = os.path.join(*[database_dir, f, "images"])
-    annot_path = os.path.join(*[database_dir, f, "annot.json"])
-    classes_path = os.path.join(*[database_dir, f, "classes.json"])
+for split in tqdm(os.listdir(database_dir)):
+    img_pth = os.path.join(*[database_dir, split, "images"])
+    annot_path = os.path.join(*[database_dir, split, "annot.json"])
+    classes_path = os.path.join(*[database_dir, split, "classes.json"])
     
     annot = json.load(open(annot_path))
     classDict = json.load(open(classes_path))
@@ -35,8 +34,8 @@ for f in tqdm(folders):
     classes = tf.constant(classes)
     image_paths = tf.constant(image_paths) 
 
-    data_dict[f] = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
-    data_dict[f] = data_dict[f].map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
+    data_dict[split] = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
+    data_dict[split] = data_dict[f].map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
 
 train = data_dict["train"]
 val = data_dict["val"]

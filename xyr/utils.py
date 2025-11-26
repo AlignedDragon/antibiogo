@@ -66,7 +66,7 @@ def drawer(image: list, tars: list):
   draw.ellipse([top_left, bottom_right], outline=colors[0], width=3)
 
   if len(tars)> 1:
-    mean_R, std_R = tars[1][0], tars[1][1]
+    mean_R, std_R = tars[1][0], np.exp(tars[1][1])
     if mean_R>1 and std_R>1:
       r = mean_R
 
