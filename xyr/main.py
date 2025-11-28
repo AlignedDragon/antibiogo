@@ -17,7 +17,7 @@ if __name__=="__main__":
     assert prefix is not None, "FOLDER_PREFIX env var is missing"
     os.makedirs(f"{dump_path}/{prefix}", exist_ok=True)
 
-    EPOCHS = 40
+    EPOCHS = 400
     wandb.init(
         dir=f"{root_path}/logs/wandb",
         project="yolo",
@@ -37,7 +37,7 @@ if __name__=="__main__":
     )
 
     try:
-        model.load_weights('/users/msayfiddinov/scratch/antibiogo/ExperimentModels/Logsigma/xyr_best.keras')
+        model.load_weights(f'/users/msayfiddinov/scratch/antibiogo/ExperimentModels/{prefix}/xyr_best.keras')
         print("SUCCESS: Weights loaded.")
     except Exception as e:
         print(f"FAILURE: Could not load weights. Error: {e}")

@@ -5,19 +5,32 @@ from utils import IMG_SIZE, initial_bias
 import tensorflow as tf
 from modelclass import CustomModel
 
-def xyr_model():
-    _create_default_https_context = _create_unverified_context
-    inputs = tf.keras.layers.Input(shape=[IMG_SIZE, IMG_SIZE, 3])
+# def xyr_model():
+#     _create_default_https_context = _create_unverified_context
+#     inputs = tf.keras.layers.Input(shape=[IMG_SIZE, IMG_SIZE, 3])
 
-    model = tf.keras.applications.MobileNetV3Small(input_shape=[IMG_SIZE, IMG_SIZE, 3], include_top=False)
-    x = model(inputs)
-    x = tf.keras.layers.GlobalMaxPooling2D()(x)
-    # 0th output is mu, 1st output is sigma
-    outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(initial_bias))(x)  
-    return CustomModel(inputs = inputs, outputs = outputs)
+#     model = tf.keras.applications.MobileNetV3Small(input_shape=[IMG_SIZE, IMG_SIZE, 3], include_top=False) #alpha=0.35
+#     x = model(inputs)
+#     x = tf.keras.layers.GlobalMaxPooling2D()(x)
+#     # 0th output is mu, 1st output is sigma
+#     outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(initial_bias))(x)  
+#     return CustomModel(inputs = inputs, outputs = outputs)
+
+def xyr_model():
+    inputs = tf.keras.layers.Input(shape=[IMG_SIZE, IMG_SIZE, 3])
+    
+    # Simple feature extraction without the bloat
+    x = tf.keras.layers.Conv2D(16, (3, 3), strides=2, activation='relu')(inputs)
+    x = tf.keras.layers.Conv2D(32, (3, 3), strides=2, activation='relu')(x)
+    x = tf.keras.layers.Conv2D(64, (3, 3), strides=2, activation='relu')(x)
+    
+    x = tf.keras.layers.GlobalAveragePooling2D()(x)
+    
+    outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(initial_bias))(x)
+    return CustomModel(inputs=inputs, outputs=outputs)
 
 
 model = xyr_model()
 model.compile(optimizer= tf.keras.optimizers.Adam(learning_rate=0.0003))
 
-# print(model.summary())
+print(model.summary())

@@ -26,4 +26,4 @@ yolo.compile(
 )
 # print(yolo.input_shape)
 # print(yolo.inputs)
-print(yolo.summary())
+# print(yolo.summary())
