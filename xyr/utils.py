@@ -1,5 +1,4 @@
 from typing import List
-import matplotlib.pyplot as plt
 from tensorflow.keras.utils import array_to_img
 import tensorflow as tf
 from PIL import Image, ImageDraw
@@ -22,7 +21,7 @@ shuffle_data_seed = 12345
 AUTOTUNE = tf.data.AUTOTUNE
 BUFFER_SIZE = 128
 BATCH_SIZE = 32
-LEARNING_RATE = 0.003
+LEARNING_RATE = 0.0003
 # The required image size.
 
 
@@ -32,32 +31,29 @@ EXPR_BATCHES = [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 32, 64, 128, 256, 512]
 EXPR_FILTERS = [8, 16, 32, 64]
 EXPR_WEIGHTS = [0.1, 0.01, 0.001, 0.0001]
 
-
-def display(display_list:List)->None:
-  """
-  [true_image,true_mask,predicted_mask] -> display
-  """
-  plt.figure(figsize=(15, 15))
-  title = ['Input Image', 'True Mask', 'Predicted Mask']
-
-  for idx in range(len(display_list)):
-    plt.subplot(1, len(display_list), idx+1)
-    plt.title(title[idx])
-    plt.imshow(array_to_img(display_list[idx]))
-    plt.axis('off')
-  plt.show()
-
+SCALE=tf.math.sqrt(2.0)*(IMG_SIZE-1.0)/4.0
+def unnormalize(sample, sigma=False):
+  """Get the mean from [-1,1] range back to [0, sqrt(2)*(IMG_SIZE-1)/2]
+     and the logsigma from [-1,1] to [-7,1] to log[0.16, sqrt(2)*(IMG_SIZE-1)/2]"""
+  if sigma==True:
+    # unnormalizing logsigma
+    sample = tf.clip_by_value((sample*4.0)-3.0, -7.0, 1.0) + tf.math.log(SCALE)
+    return sample
+  sample = (sample+1.0)*SCALE
+  return sample
 
 def drawer(image: list, tars: list):
-  # tars is [true_R, (mean_R, std_R)]
+  """Given image and targets with base_truth and predictions,
+     draw base_truth with green and prediction with red"""
   colors = [(0,255,0), (255, 0, 0)]
   image = image.convert("RGBA")
 
   true_R = tars[0].numpy()
-  x, y = 128, 128
+  w, h = image.size
+  x, y = w // 2, h // 2
 
   # draw the base truth
-  r = true_R
+  r = float(unnormalize(true_R))
   top_left = (x - r, y - r)
   bottom_right = (x + r, y + r)
 
@@ -66,8 +62,10 @@ def drawer(image: list, tars: list):
   draw.ellipse([top_left, bottom_right], outline=colors[0], width=3)
 
   if len(tars)> 1:
-    mean_R, std_R = tars[1][0], np.exp(tars[1][1])
-    if mean_R>1 and std_R>1:
+    # tars is [true_R, (mean_R, std_R)]
+    mean_R, logsigma = float(unnormalize(tars[1][0])), float(unnormalize(tars[1][1], sigma=True))
+    std_R = np.exp(logsigma)
+    if mean_R>0 and std_R>0:
       r = mean_R
 
       # drawing stadard deviation
@@ -100,7 +98,3 @@ def targetize(pred_target):
   pred_target = pred_target.tolist()
   return pred_target
   
-  
-# Instantiate an optimizer.
-optimAdam = tf.keras.optimizers.Adam(learning_rate=LEARNING_RATE)
-
