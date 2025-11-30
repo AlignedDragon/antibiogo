@@ -1,24 +1,25 @@
-? what if i give -5 and 5 as the limits rather -2. because it is hard to learn thing.
-- try with normalizing to [-1,1] both mean and variance
-- if it doesn't work simply clip the the probability from below
-- stop and think what is happening at all?
-? maybe th emodel is too big for this task? it has learnt too well. also last time, it was able to learn extra on top. v3 alpha=.35
-- add a little more force to make it converge for radius -> mse loss for radius
-- using Sergey's nll with changes to modelclass and utils line 69 np.exp()
+- std interval is completely wrong.
+- make it converge somehow
 
+- yolo is struggling with dishes - better have separate small obj det models.
+- train yolo with augmented dataset
+- test with slicer bcz there might me some noise in the center of yolo.
 
-
-- test with slicer
-- how to evaluate the model? we get max_allowed limit. we get variance -> x percent sure the radisu is inside max_allowed
-- which percent certainity is good enough? chosen based on the data at hand. 
-
+? train an ensemble only
+? train a little bit with mse for radius only
+? do i really need to work with logsigma?
 ? but why normalizing to [-1,1] would help so much?
-? GaussianNLL might fail -> copy torch implementation
-? maybe freeze some parameters to avoid overfitting
-? if YOLO doesn't converge, have two separate models for the dish and pellets OR have assume the dish to be the same
+? if it doesn't work simply clip the the probability from below
+? stop and think what is happening at all?
+? freeze some params
 
 
-! xyr model output two values, [0] is the mean [1] is the standard deviation
+! MNv3_0.1_LRS is struggling with big radii
+! xyr model output two values, [0] is the mean [1] is the standard deviation. all in [-1,1] range. they must be transformed back
+! after 200 epochs - overfitting
+! average radius of a pellet is 3 mm. mean = 16.6, min = 11.4 for pellet radius -> 1mm = 3.8 pixel
 
+
+# xyr_dataset/train - 14774 
+# yolo_dataset/train - 1140
 # yolo is ->  Total params: 3,433,148 (13.10 MB)
-# radius predictor mobilinetV3small ->  Total params: 940,274 (3.59 MB)

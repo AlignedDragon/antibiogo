@@ -6,7 +6,7 @@ import wandb, os
 wandb.require("core")
 from wandb.integration.keras import WandbMetricsLogger
 from datetime import date
-from utils import EXPR_BATCHES, EXPR_FILTERS, EXPR_WEIGHTS, root_path
+from utils import root_path, EPOCHS
 import tensorflow as tf
 
 
@@ -17,7 +17,6 @@ if __name__=="__main__":
     assert prefix is not None, "FOLDER_PREFIX env var is missing"
     os.makedirs(f"{dump_path}/{prefix}", exist_ok=True)
 
-    EPOCHS = 600
     wandb.init(
         dir=f"{root_path}/logs/wandb",
         project="yolo",

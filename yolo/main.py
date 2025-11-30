@@ -9,7 +9,7 @@ wandb.require("core")
 from wandb.integration.keras import WandbMetricsLogger
 from datetime import date
 import tensorflow as tf
-tf.config.run_functions_eagerly(True)
+# tf.config.run_functions_eagerly(True)
 
 
 if __name__=="__main__":

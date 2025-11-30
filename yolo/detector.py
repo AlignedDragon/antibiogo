@@ -4,7 +4,7 @@ import keras_cv
 from utils import class_mapping
 # from dataloader import originl_train_dataset
 from utils import LEARNING_RATE, GLOBAL_CLIPNORM, IMG_SIZE
-tf.config.run_functions_eagerly(True)
+# tf.config.run_functions_eagerly(True)
 
 backbone = keras_cv.models.YOLOV8Backbone.from_preset(
     "yolo_v8_xs_backbone_coco"  # We will use yolov8 small backbone with coco weights

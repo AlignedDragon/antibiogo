@@ -1,7 +1,7 @@
 import os, json
 import tensorflow as tf
 from tqdm import tqdm
-from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE, shuffle_data_seed, root_path, \
+from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE, root_path, \
     train_dir, val_dir, test_dir
 
 
