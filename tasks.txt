@@ -6,7 +6,7 @@
 - train yolo with augmented dataset
 - test with slicer bcz there might me some noise in the center of yolo.
 
-* MNv3_0.1_LRS is struggling with big radii
+* MNv3_0.1_LRS is struggling with big radii -> ? go with polar coordinates with center jitter. 
 * after 200 epochs - overfitting
 
 ? go with bigger model and distill
