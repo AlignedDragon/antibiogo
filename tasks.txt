@@ -9,6 +9,7 @@
 * MNv3_0.1_LRS is struggling with big radii
 * after 200 epochs - overfitting
 
+? go with bigger model and distill
 ? train an ensemble only
 ? do i really need to work with logsigma?
 ? but why normalizing to [-1,1] would help so much?
