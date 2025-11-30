@@ -29,7 +29,7 @@ echo "==========================================="
 echo "Starting experiments on ${FOLDER_PREFIX}"
 echo "==========================================="
 
-# python /users/msayfiddinov/antibiogo/yolo/main.py
+python /users/msayfiddinov/antibiogo/yolo/main.py
 
 # Visualize model predictions on a few batches of validation split
 python /users/msayfiddinov/antibiogo/yolo/val_viz.py

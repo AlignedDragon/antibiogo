@@ -1,22 +1,22 @@
 - std interval is completely wrong.
+- train a little bit with mse for radius only (pushing std to zero)
 - make it converge somehow
 
 - yolo is struggling with dishes - better have separate small obj det models.
 - train yolo with augmented dataset
 - test with slicer bcz there might me some noise in the center of yolo.
 
+* MNv3_0.1_LRS is struggling with big radii
+* after 200 epochs - overfitting
+
 ? train an ensemble only
-? train a little bit with mse for radius only
 ? do i really need to work with logsigma?
 ? but why normalizing to [-1,1] would help so much?
 ? if it doesn't work simply clip the the probability from below
 ? stop and think what is happening at all?
 ? freeze some params
 
-
-! MNv3_0.1_LRS is struggling with big radii
 ! xyr model output two values, [0] is the mean [1] is the standard deviation. all in [-1,1] range. they must be transformed back
-! after 200 epochs - overfitting
 ! average radius of a pellet is 3 mm. mean = 16.6, min = 11.4 for pellet radius -> 1mm = 3.8 pixel
 
 
