@@ -1,5 +1,5 @@
 - std interval is completely wrong.
-- train a little bit with mse for radius only (pushing std to zero)
+- train a little bit with mse for radius only (pushing std to zero) then go with gnll with very small lr
 - make it converge somehow
 
 - yolo is struggling with dishes - better have separate small obj det models.
@@ -11,7 +11,7 @@
 
 ? go with bigger model and distill
 ? train an ensemble only
-? do i really need to work with logsigma?
+? do i really need to work with logsigma? no, you can take sigma and homomorphic transform
 ? but why normalizing to [-1,1] would help so much?
 ? if it doesn't work simply clip the the probability from below
 ? stop and think what is happening at all?
