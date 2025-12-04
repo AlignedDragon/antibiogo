@@ -1,4 +1,5 @@
 - std interval is completely wrong.
+- did i not confuse logsigma to sigma with estimations?
 - train a little bit with mse for radius only (pushing std to zero) then go with gnll with very small lr
 - make it converge somehow
 
