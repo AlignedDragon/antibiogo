@@ -1,5 +1,5 @@
-# Antibiogo--IHZ
-This repo includes codes written for Antibiogo's inhibition zone prediction part. It is only a copy of the work in progress. The original code is kept inside the private repo of MSF (Medecins Sans Frontières) together with other parts of the project. Only legally permitted part has been published in this repo.
+# Antibiogo
+This repo includes codes written for Antibiogo's deep learning based implementation.
 
 This software is part of the Antibiogo application, a project of Fondation Medecins Sans Frontières.
 
