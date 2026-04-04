@@ -25,8 +25,8 @@ BUFFER_SIZE = 128
 BATCH_SIZE = 32
 LEARNING_RATE = 0.0003
 GLOBAL_CLIPNORM = 10.0
-MAX_BOXES = 17
-class_ids = ["None", "pellet", 'circular_dish', 'rectangular_dish']
+MAX_BOXES = 16
+class_ids = ["None", "pellet"]
 class_mapping = dict(zip(range(len(class_ids)), class_ids))
 
 # The required image size.

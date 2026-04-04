@@ -35,7 +35,7 @@ for split in tqdm(os.listdir(database_dir)):
     image_paths = tf.constant(image_paths) 
 
     data_dict[split] = tf.data.Dataset.from_tensor_slices((image_paths, classes, bbox))
-    data_dict[split] = data_dict[f].map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
+    data_dict[split] = data_dict[split].map(load_dataset, num_parallel_calls=tf.data.AUTOTUNE).shuffle(BUFFER_SIZE,seed=shuffle_data_seed)
 
 train = data_dict["train"]
 val = data_dict["val"]

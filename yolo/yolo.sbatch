@@ -7,8 +7,8 @@
 #SBATCH --partition=normal            # Partition to use; "debug" is usually for quick tests
 #SBATCH --mem=460000                 # Memory needed (simply set the mem of a node)
 #SBATCH --cpus-per-task=288          # CPU cores per task (simply set the number of cpus a node has)
-#SBATCH --output=/users/msayfiddinov/scratch/antibiogo/logs/yolo_%j.out  # log file for stdout, prints, et cetera
-#SBATCH --error=/users/msayfiddinov/scratch/antibiogo/logs/yolo_%j.err # log file for stderr, errors
+#SBATCH --output=/users/msayfiddinov/scratch/antibiogo/logs/%x_%j.out  # log file for stdout, prints, et cetera
+#SBATCH --error=/users/msayfiddinov/scratch/antibiogo/logs/%x_%j.err # log file for stderr, errors
 
 # Exit immediately if a command exits with a non-zero status (good practice)
 set -eo pipefail
@@ -18,12 +18,13 @@ echo "The run has started at $(date)"
 echo "==========================================="
 
 # installing for checker script -> latex_parser needs it
-source ~/miniconda3/etc/profile.d/conda.sh
-conda activate anti
+source $SCRATCH/miniconda3/etc/profile.d/conda.sh
+conda activate biogo
 
 # folder separate model names so that they don't overwrite at the end
 # model is saved in $PREFIX/yolo.keras form inside ExperimentModels
-export FOLDER_PREFIX="yolo_mix"
+export FOLDER_PREFIX="yolo_pelletOnly"
+export WANDB_API_KEY='REDACTED'
 
 echo "==========================================="
 echo "Starting experiments on ${FOLDER_PREFIX}"
