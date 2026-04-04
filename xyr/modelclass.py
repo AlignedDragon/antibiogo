@@ -23,8 +23,8 @@ class CustomModel(tf.keras.Model):
     self.optimizer.apply_gradients(zip(grads, trainable_vars))
     # Update metrics
     self.loss_tracker.update_state(loss_value)
-    self.mae_metric.update_state(  target,  predictions[...,0])
-    self.mse_metric.update_state(  target,  predictions[...,0])
+    self.mae_metric.update_state(target, predictions)
+    self.mse_metric.update_state(target, predictions)
     # Return a dict mapping metric names to current value
     return {"loss": self.loss_tracker.result(), "mae": self.mae_metric.result(), "mse": self.mse_metric.result()}
 
@@ -37,8 +37,8 @@ class CustomModel(tf.keras.Model):
     loss_value = self.mse_metric(target, predictions)
     # Update metrics
     self.loss_tracker.update_state(loss_value)
-    self.mae_metric.update_state(  target,  predictions[...,0])
-    self.mse_metric.update_state(  target,  predictions[...,0])
+    self.mae_metric.update_state(target, predictions)
+    self.mse_metric.update_state(target, predictions)
     # Return a dict mapping metric names to current value
     return {"loss": self.loss_tracker.result(), "mae": self.mae_metric.result(), "mse": self.mse_metric.result()}
 

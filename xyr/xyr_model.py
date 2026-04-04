@@ -22,7 +22,7 @@ def xyr_model():
     model = weight_init()
     x = model(inputs)
     x = tf.keras.layers.GlobalMaxPooling2D()(x)
-    outputs = tf.keras.layers.Dense(2, name='output', bias_initializer=tf.keras.initializers.Constant(INITIAL_BIAS))(x)  
+    outputs = tf.keras.layers.Dense(1, name='output', bias_initializer=tf.keras.initializers.Constant(INITIAL_BIAS))(x)  
     return CustomModel(inputs = inputs, outputs = outputs)
 
 
