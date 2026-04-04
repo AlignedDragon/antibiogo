@@ -1,12 +1,11 @@
-"""
-This file visualizes a model's predictions for val_batches.
-It draws base_truth in green and the model's mean_predictions with 
-standard_deviation in red. In the bottom of the pictures, there are
-the base_truth, mean_prediction, standard_deviation, and the abs_difference
-between base_truth and mean_prediction
-"""
+"""                                                                                                                                                                                                                                                         
+  This file visualizes a model's predictions for val_batches.
+  It draws base_truth in green and the model's prediction in red.                                                                                                                                                                                             
+  In the bottom of the pictures, there are the base_truth, prediction,
+  and the abs_difference between them.                                                                                                                                                                                                                        
+"""  
 from dataloader import vald_batches
-from utils import root_path, drawer, unnormalize
+from utils import root_path, drawer
 import os
 from xyr_model import model
 import tensorflow as tf
@@ -28,16 +27,14 @@ for batch_idx, (image_batch, target_batch) in tqdm(enumerate(vald_batches), desc
     batch_predictions = tf.cast(model.predict(image_batch, verbose=0), dtype=tf.float32)
     for img_idx, (sample_image, sample_target, pred) in enumerate(zip(image_batch, target_batch, batch_predictions)):
         # 1. Extract scalars for display
-        gt, mu, std = float(unnormalize(sample_target)), float(unnormalize(pred[0])), float(unnormalize(pred[1], sigma=True))
-        diff = abs(gt - mu)
+        gt, pr = float(sample_target), float(pred)
+        diff = abs(gt - pr)
 
         # 2. Format the text
         text = (f"Base: {gt:.2f}\n"
-                f"Mean: {mu:.2f}\n"
-                f"Std:  {std:.2f}\n"
+                f"Pred: {pr:.2f}\n"
                 f"Diff: {diff:.2f}")
         
-        output_path = os.path.join(viz_path, f"{batch_idx}_{img_idx}.jpg")
         img_obj = drawer(array_to_img(sample_image), [sample_target, pred]).convert("RGB")
         draw = ImageDraw.Draw(img_obj)
 

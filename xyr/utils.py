@@ -39,16 +39,6 @@ lr_schedule = tf.keras.optimizers.schedules.CosineDecay(
     warmup_steps=warmup_steps       # Enables the Linear Ramp-up
 )
 
-def unnormalize(sample, sigma=False):
-  """Get the mean from [-1,1] range back to [0, sqrt(2)*(IMG_SIZE-1)/2]
-     and the logsigma from [-1,1] to [-7,1] to log[0.16, sqrt(2)*(IMG_SIZE-1)/2]"""
-  if sigma==True:
-    # unnormalizing logsigma
-    sample = tf.clip_by_value((sample*4.0)-3.0, -7.0, 1.0) + tf.math.log(SCALE)
-    return sample
-  sample = (sample+1.0)*SCALE
-  return sample
-
 def drawer(image: list, tars: list):
   """Given image and targets with base_truth and predictions,
      draw base_truth with green and prediction with red"""
@@ -60,7 +50,7 @@ def drawer(image: list, tars: list):
   x, y = w // 2, h // 2
 
   # draw the base truth
-  r = float(unnormalize(true_R))
+  r = float(true_R)
   top_left = (x - r, y - r)
   bottom_right = (x + r, y + r)
 
@@ -69,29 +59,8 @@ def drawer(image: list, tars: list):
   draw.ellipse([top_left, bottom_right], outline=colors[0], width=3)
 
   if len(tars)> 1:
-    # tars is [true_R, (mean_R, std_R)]
-    mean_R, logsigma = float(unnormalize(tars[1][0])), float(unnormalize(tars[1][1], sigma=True))
-    std_R = np.exp(logsigma)
-    if mean_R>0 and std_R>0:
-      r = mean_R
-
-      # drawing stadard deviation
-      overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
-      od = ImageDraw.Draw(overlay)
-
-      outer_r = r + std_R
-      inner_r = max(0, r - std_R)  # avoid negative
-
-      bbox_outer = (x - outer_r, y - outer_r, x + outer_r, y + outer_r)
-      bbox_inner = (x - inner_r, y - inner_r, x + inner_r, y + inner_r)
-
-      # draw filled outer ellipse with alpha, then punch hole by drawing transparent inner ellipse
-      od.ellipse(bbox_outer, fill=(255, 0, 0, 50))   # red with alpha (0-255)
-      od.ellipse(bbox_inner, fill=(0, 0, 0, 0))       # makes the hole transparent
-
-      # composite overlay onto original image
-      image = Image.alpha_composite(image, overlay)
-
+    r = float(tars[1])
+    if r>0.0:
       # Draw ellipse
       top_left = (x - r, y - r)
       bottom_right = (x + r, y + r)

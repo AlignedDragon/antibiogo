@@ -9,10 +9,6 @@ def normalize(img, target):
     img = -1.0 + tf.cast(img, tf.float32) / 127.5
     return img
 
-def target_normalize(target):
-    target = -1.0 + tf.cast(target, tf.float32)/ (tf.math.sqrt(2.0)*(IMG_SIZE-1.0)/4.0)
-    return target
-
 def get_lookup_table(all_keys, all_values):
     """Creates a static lookup table inside the TF graph."""
     keys_tensor = tf.constant(all_keys)
@@ -47,7 +43,7 @@ def load_and_process(file_path):
     img = tf.io.decode_jpeg(img)
     img = tf.image.resize(img, (IMG_SIZE, IMG_SIZE), method='bilinear')
     img = normalize(img)
-    target = target_normalize(target)
+    target = target
     
     return img, target
 
