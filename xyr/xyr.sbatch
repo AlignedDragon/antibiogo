@@ -18,12 +18,13 @@ echo "The run has started at $(date)"
 echo "==========================================="
 
 # installing for checker script -> latex_parser needs it
-source ~/miniconda3/etc/profile.d/conda.sh
-conda activate anti
+source $SCRATCH/miniconda3/etc/profile.d/conda.sh
+conda activate biogo
 
 # to separate model names so that they don't overwrite at the end
 # model is saved in $PREFIX/xyr.keras form inside ExperimentModels
-export FOLDER_PREFIX="MNv3_0.1_LRS"
+export FOLDER_PREFIX="MNv3_1.0_MCD"
+export WANDB_API_KEY='REDACTED'
 
 echo "==========================================="
 echo "Starting experiments on ${FOLDER_PREFIX}"

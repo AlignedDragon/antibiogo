@@ -24,14 +24,14 @@ savemodel_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_file
 
 class DisplayCallback(tf.keras.callbacks.Callback):
   def on_train_begin(self, logs=None):
-      wandb.log({"Prediction": [wandb.Image(drawer(array_to_img(sample_image), [sample_target]), caption="Base truth"),
-                                wandb.Image(drawer(array_to_img(sample_image), [sample_target, targetize(self.model.predict(sample_image[tf.newaxis, ...]))]),caption="Compare"),
-                                wandb.Image(drawer(array_to_img(sample_image), [tf.constant(0), targetize(self.model.predict(sample_image[tf.newaxis, ...]))]),caption=f"Prediction start")]})
+      wandb.log({"Prediction": [wandb.Image(drawer(array_to_img(sample_image), [targetize(sample_target), 0]), caption="Base truth"),
+                                wandb.Image(drawer(array_to_img(sample_image), [targetize(sample_target), self.model.predict(sample_image[tf.newaxis, ...])[0,0]]),caption="Compare"),
+                                wandb.Image(drawer(array_to_img(sample_image), [0, self.model.predict(sample_image[tf.newaxis, ...])[0,0]]),caption=f"Prediction start")            ]})
 
   def on_epoch_end(self, epoch, logs=None):
-      wandb.log({"Prediction": [wandb.Image(drawer(array_to_img(sample_image), [sample_target]), caption="Base truth"),
-                                wandb.Image(drawer(array_to_img(sample_image), [sample_target, targetize(self.model.predict(sample_image[tf.newaxis, ...]))]),caption="Compare"),
-                                wandb.Image(drawer(array_to_img(sample_image), [tf.constant(0), targetize(self.model.predict(sample_image[tf.newaxis, ...]))]),caption=f"Prediction epoch - {epoch}")]})
+      wandb.log({"Prediction": [wandb.Image(drawer(array_to_img(sample_image), [targetize(sample_target), 0]), caption="Base truth"),
+                                wandb.Image(drawer(array_to_img(sample_image), [targetize(sample_target), self.model.predict(sample_image[tf.newaxis, ...])[0,0]]),caption="Compare"),
+                                wandb.Image(drawer(array_to_img(sample_image), [0, self.model.predict(sample_image[tf.newaxis, ...])[0,0]]),caption=f"Prediction epoch - {epoch}")  ]})
 
 
 

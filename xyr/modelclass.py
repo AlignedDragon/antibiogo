@@ -5,6 +5,7 @@ import numpy as np
 class CustomModel(tf.keras.Model):
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
+    self.loss_fn = tf.keras.losses.MeanSquaredError()
     self.loss_tracker = tf.keras.metrics.Mean(name="loss")
     self.mae_metric = tf.keras.metrics.MeanAbsoluteError(name="mae")
     self.mse_metric = tf.keras.metrics.MeanSquaredError(name="mse")
@@ -15,7 +16,7 @@ class CustomModel(tf.keras.Model):
     with tf.GradientTape() as tape:
         # Forward pass.
         predictions = self(image, training=True)
-        loss_value = self.mse_metric(target, predictions)
+        loss_value = self.loss_fn(target, predictions)
         
     # Compute gradients and update weights
     trainable_vars = self.trainable_variables
@@ -34,7 +35,7 @@ class CustomModel(tf.keras.Model):
     # Compute predictions
     predictions = self(image, training=False)
     # Compute the loss.
-    loss_value = self.mse_metric(target, predictions)
+    loss_value = self.loss_fn(target, predictions)
     # Update metrics
     self.loss_tracker.update_state(loss_value)
     self.mae_metric.update_state(target, predictions)

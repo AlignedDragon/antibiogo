@@ -5,7 +5,7 @@
   and the abs_difference between them.                                                                                                                                                                                                                        
 """  
 from dataloader import vald_batches
-from utils import root_path, drawer
+from utils import root_path, drawer, targetize
 import os
 from xyr_model import model
 import tensorflow as tf
@@ -35,7 +35,7 @@ for batch_idx, (image_batch, target_batch) in tqdm(enumerate(vald_batches), desc
                 f"Pred: {pr:.2f}\n"
                 f"Diff: {diff:.2f}")
         
-        img_obj = drawer(array_to_img(sample_image), [sample_target, pred]).convert("RGB")
+        img_obj = drawer(array_to_img(sample_image), [gt, pr]).convert("RGB")
         draw = ImageDraw.Draw(img_obj)
 
         bbox = draw.textbbox((0, 0), text)

@@ -6,10 +6,10 @@ import warnings
 
 from keras import backend
 from keras import layers
-from keras.applications import imagenet_utils
-from keras.models import Model
-from keras.utils import file_utils
-from keras.ops import operation_utils
+from keras.src.applications import imagenet_utils
+from keras.src.models import Functional
+from keras.src.ops import operation_utils
+from keras.src.utils import file_utils
 from utils import MCDROPOUT_RATE
 
 BASE_WEIGHT_PATH = (

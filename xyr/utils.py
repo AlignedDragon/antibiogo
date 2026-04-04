@@ -45,12 +45,11 @@ def drawer(image: list, tars: list):
   colors = [(0,255,0), (255, 0, 0)]
   image = image.convert("RGBA")
 
-  true_R = tars[0].numpy()
   w, h = image.size
   x, y = w // 2, h // 2
 
   # draw the base truth
-  r = float(true_R)
+  r = tars[0]
   top_left = (x - r, y - r)
   bottom_right = (x + r, y + r)
 
@@ -58,18 +57,15 @@ def drawer(image: list, tars: list):
   draw = ImageDraw.Draw(image)
   draw.ellipse([top_left, bottom_right], outline=colors[0], width=3)
 
-  if len(tars)> 1:
-    r = float(tars[1])
-    if r>0.0:
-      # Draw ellipse
-      top_left = (x - r, y - r)
-      bottom_right = (x + r, y + r)
-      draw = ImageDraw.Draw(image)
-      draw.ellipse([top_left, bottom_right], outline=colors[1], width=3)
+  r = tars[1]
+  if r > 0.0:
+    # Draw ellipse
+    top_left = (x - r, y - r)
+    bottom_right = (x + r, y + r)
+    draw = ImageDraw.Draw(image)
+    draw.ellipse([top_left, bottom_right], outline=colors[1], width=3)
   return image
 
-def targetize(pred_target):
-  pred_target = pred_target[0]
-  pred_target = pred_target.tolist()
-  return pred_target
+def targetize(target):
+  return float(target.numpy())
   

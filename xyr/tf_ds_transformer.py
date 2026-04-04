@@ -5,7 +5,7 @@ from utils import IMG_SIZE, BUFFER_SIZE, AUTOTUNE, root_path, \
     train_dir, val_dir, test_dir
 
 
-def normalize(img, target):
+def normalize(img):
     img = -1.0 + tf.cast(img, tf.float32) / 127.5
     return img
 
