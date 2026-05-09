@@ -12,6 +12,13 @@ from keras.src.ops import operation_utils
 from keras.src.utils import file_utils
 from utils import MCDROPOUT_RATE
 
+
+class MCDropout(layers.Dropout):
+    """Dropout that stays active at inference time (Keras 3 ignores call-time
+    training=True, so we force it inside call())."""
+    def call(self, inputs, training=None):
+        return super().call(inputs, training=True)
+
 BASE_WEIGHT_PATH = (
     "https://storage.googleapis.com/tensorflow/keras-applications/mobilenet_v3/"
 )
@@ -505,15 +512,15 @@ def MobileNetV3Small_MCDropout(
         x = _inverted_res_block(
             x, 6, depth(96), kernel, 2, se_ratio, activation, 8
         )
-        x = layers.Dropout(rate=MCDROPOUT_RATE)(x, training=True)
+        x = MCDropout(rate=MCDROPOUT_RATE)(x)
         x = _inverted_res_block(
             x, 6, depth(96), kernel, 1, se_ratio, activation, 9
         )
-        x = layers.Dropout(rate=MCDROPOUT_RATE)(x, training=True)
+        x = MCDropout(rate=MCDROPOUT_RATE)(x)
         x = _inverted_res_block(
             x, 6, depth(96), kernel, 1, se_ratio, activation, 10
         )
-        x = layers.Dropout(rate=MCDROPOUT_RATE)(x, training=True)
+        x = MCDropout(rate=MCDROPOUT_RATE)(x)
         return x
 
     return MobileNetV3(

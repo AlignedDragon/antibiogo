@@ -8,12 +8,13 @@ def weight_init():
     original = tf.keras.applications.MobileNetV3Small(input_shape=[IMG_SIZE, IMG_SIZE, 3], weights="imagenet", include_top=False, include_preprocessing=False)
     modified = MobileNetV3Small_MCDropout(input_shape=[IMG_SIZE, IMG_SIZE, 3],weights=None, include_top=False, include_preprocessing=False)
     for layer in modified.layers:
+        if not layer.get_weights():
+            continue  # no-parameter layers (activations, dropout, rescaling, input) — nothing to copy
         try:
             weights = original.get_layer(layer.name).get_weights()
             layer.set_weights(weights)
         except (ValueError, KeyError):
-            # Dropout layers and any new layers won't exist in original — skip
-            print(f"Skipping: {layer.name}")
+            print(f"Skipping (no match in pretrained): {layer.name}")
     return modified
 
 
