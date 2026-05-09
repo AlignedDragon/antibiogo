@@ -5,8 +5,8 @@ from utils import LEARNING_RATE, lr_schedule
 from MobileNets import MobileNetV3Small_MCDropout
 
 def weight_init():
-    original = tf.keras.applications.MobileNetV3Small(input_shape=[IMG_SIZE, IMG_SIZE, 3], weights="imagenet", include_top=False)
-    modified = MobileNetV3Small_MCDropout(input_shape=[IMG_SIZE, IMG_SIZE, 3],weights=None, include_top=False)
+    original = tf.keras.applications.MobileNetV3Small(input_shape=[IMG_SIZE, IMG_SIZE, 3], weights="imagenet", include_top=False, include_preprocessing=False)
+    modified = MobileNetV3Small_MCDropout(input_shape=[IMG_SIZE, IMG_SIZE, 3],weights=None, include_top=False, include_preprocessing=False)
     for layer in modified.layers:
         try:
             weights = original.get_layer(layer.name).get_weights()

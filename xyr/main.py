@@ -36,7 +36,7 @@ if __name__=="__main__":
     )
 
     try:
-        model.load_weights(f'/users/msayfiddinov/scratch/antibiogo/ExperimentModels/{prefix}/xyr_best.keras')
+        model.load_weights(ckpt_path)
         print("SUCCESS: Weights loaded.")
     except Exception as e:
         print(f"FAILURE: Could not load weights. Error: {e}")

@@ -7,8 +7,7 @@ from PIL import Image, ImageDraw
 import numpy as np
 
 
-# root_path = getenv("ROOT_DIR")
-root_path = '/users/msayfiddinov/scratch/antibiogo'
+root_path = path.join(path.dirname(path.dirname(path.abspath(__file__))), "data")
 
 train_dir = path.join(root_path,"tf_record_yolo/Train")
 val_dir = path.join(root_path,"tf_record_yolo/Valid")
@@ -26,7 +25,7 @@ BATCH_SIZE = 32
 LEARNING_RATE = 0.0003
 GLOBAL_CLIPNORM = 10.0
 MAX_BOXES = 16
-class_ids = ["None", "pellet"]
+class_ids = ["pellet"]
 class_mapping = dict(zip(range(len(class_ids)), class_ids))
 
 # The required image size.

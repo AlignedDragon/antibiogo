@@ -2,9 +2,10 @@ from utils import read_json, write_json
 import os
 import logging
 
-data_dir = "/users/msayfiddinov/scratch/antibiogo/yolo_database"
-annots = read_json("/users/msayfiddinov/scratch/antibiogo/annot.json")
-classes = read_json("/users/msayfiddinov/scratch/antibiogo/classes.json")
+_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+data_dir = os.path.join(_root, "yolo_database")
+annots = read_json(os.path.join(_root, "annot.json"))
+classes = read_json(os.path.join(_root, "classes.json"))
 
 for dr in os.listdir(data_dir):
     logging.warning(f"working on {data_dir}/{dr}")

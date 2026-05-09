@@ -1,41 +1,43 @@
 #!/bin/bash
-#SBATCH --job-name=xyr   # A name for your job. Visible in squeue.
-#SBATCH --account=a127         # The account you are charged for the job
-#SBATCH --nodes=1                    # Number of compute nodes to request.
-#SBATCH --ntasks-per-node=1          # Tasks (processes) per node
-#SBATCH --time=11:59:00              # HH:MM:SS, set a time limit for this job (here 10min)
-#SBATCH --partition=normal            # Partition to use; "debug" is usually for quick tests
-#SBATCH --mem=460000                 # Memory needed (simply set the mem of a node)
-#SBATCH --cpus-per-task=288          # CPU cores per task (simply set the number of cpus a node has)
-#SBATCH --output=/users/msayfiddinov/scratch/antibiogo/logs/xyr_%j.out  # log file for stdout, prints, et cetera
-#SBATCH --error=/users/msayfiddinov/scratch/antibiogo/logs/xyr_%j.err # log file for stderr, errors
+#SBATCH --job-name=xyr
+#SBATCH --account=a127
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=11:59:00
+#SBATCH --partition=normal
+#SBATCH --mem=460000
+#SBATCH --cpus-per-task=288
+#SBATCH --output=data/logs/%x_%j.out
+#SBATCH --error=data/logs/%x_%j.err
 
-# Exit immediately if a command exits with a non-zero status (good practice)
 set -eo pipefail
+
+# Resolve the repo root from this script's location, regardless of submit CWD.
+REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$REPO_DIR"
+mkdir -p data/logs
 
 echo "==========================================="
 echo "The run has started at $(date)"
+echo "Repo: $REPO_DIR"
 echo "==========================================="
 
-# installing for checker script -> latex_parser needs it
-source $SCRATCH/miniconda3/etc/profile.d/conda.sh
+# Activate conda from whatever conda is on PATH.
+eval "$(conda shell.bash hook)"
 conda activate biogo
 
-# to separate model names so that they don't overwrite at the end
-# model is saved in $PREFIX/xyr.keras form inside ExperimentModels
-export FOLDER_PREFIX="MNv3_1.0_MCD"
-export WANDB_API_KEY='REDACTED'
+# Folder prefix separates model checkpoints under data/ExperimentModels/$FOLDER_PREFIX/.
+export FOLDER_PREFIX="${FOLDER_PREFIX:-MNv3_1.0_MCD}"
 
 echo "==========================================="
 echo "Starting experiments on ${FOLDER_PREFIX}"
 echo "==========================================="
 
-python $HOME/antibiogo/xyr/main.py
+python xyr/main.py
 
 # Visualize model predictions on a few batches of validation split
-python $HOME/antibiogo/xyr/val_viz.py
+python xyr/val_viz.py
 
 echo "==========================================="
 echo "The run has finished at $(date)"
 echo "==========================================="
-

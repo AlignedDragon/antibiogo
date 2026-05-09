@@ -4,7 +4,7 @@ import numpy as np
 import os
 import math
 
-root_path = '/users/msayfiddinov/scratch/antibiogo'
+root_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 
 train_dir = os.path.join(root_path,"tf_record_xyr/Train")
 val_dir = os.path.join(root_path,"tf_record_xyr/Valid")
