@@ -1,7 +1,7 @@
-from utils import IMG_SIZE, INITIAL_BIAS
+from utils import IMG_SIZE, INITIAL_BIAS, INITIAL_LOG_SIGMA2
 import tensorflow as tf
 from modelclass import CustomModel
-from utils import LEARNING_RATE, lr_schedule
+from utils import lr_schedule
 from MobileNets import MobileNetV3Small_MCDropout
 
 def weight_init():
@@ -9,7 +9,7 @@ def weight_init():
     modified = MobileNetV3Small_MCDropout(input_shape=[IMG_SIZE, IMG_SIZE, 3],weights=None, include_top=False, include_preprocessing=False)
     for layer in modified.layers:
         if not layer.get_weights():
-            continue  # no-parameter layers (activations, dropout, rescaling, input) — nothing to copy
+            continue
         try:
             weights = original.get_layer(layer.name).get_weights()
             layer.set_weights(weights)
@@ -20,14 +20,25 @@ def weight_init():
 
 def xyr_model():
     inputs = tf.keras.layers.Input(shape=[IMG_SIZE, IMG_SIZE, 3])
-    model = weight_init()
-    x = model(inputs)
-    x = tf.keras.layers.GlobalMaxPooling2D()(x)
-    outputs = tf.keras.layers.Dense(1, name='output', bias_initializer=tf.keras.initializers.Constant(INITIAL_BIAS))(x)  
-    return CustomModel(inputs = inputs, outputs = outputs)
+    backbone = weight_init()
+    feats = backbone(inputs)
+    feats = tf.keras.layers.GlobalMaxPooling2D()(feats)
+    # Zero kernel init keeps every sample at exactly the bias at step 0 -
+    # no per-sample spread on log_sigma^2 (which would otherwise blow up the
+    # NLL through exp(-log_sigma^2)).
+    mu = tf.keras.layers.Dense(
+        1, name="mu",
+        kernel_initializer="zeros",
+        bias_initializer=tf.keras.initializers.Constant(INITIAL_BIAS),
+    )(feats)
+    log_sigma2 = tf.keras.layers.Dense(
+        1, name="log_sigma2",
+        kernel_initializer="zeros",
+        bias_initializer=tf.keras.initializers.Constant(INITIAL_LOG_SIGMA2),
+    )(feats)
+    outputs = tf.keras.layers.Concatenate(axis=-1, name="mu_logvar")([mu, log_sigma2])
+    return CustomModel(inputs=inputs, outputs=outputs)
 
 
 model = xyr_model()
-model.compile(optimizer= tf.keras.optimizers.Adam(learning_rate=lr_schedule))
-
-# print(model.summary())
+model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule, global_clipnorm=1.0))

@@ -14,6 +14,12 @@ test_dir = os.path.join(root_path,"tf_record_xyr/Test")
 LEARNING_RATE = 0.0003
 EPOCHS = 600
 INITIAL_BIAS = 0
+# log(sigma^2) head bias init. Targets are radii in pixels (~12-160, mean ~55);
+# we want the squared-error term in the NLL to dominate early so mu learns
+# fast (its gradient is scaled by exp(-log_sigma^2)). Bias=4 -> sigma~7,
+# inv_var~0.018 -> mu gradient ~ 1*(y-mu) per sample, which is the same order
+# as plain MSE/2. log_sigma^2 then climbs naturally toward log(sq_err).
+INITIAL_LOG_SIGMA2 = 4.0
 MAX_LR=0.003
 START_LR=0.0003
 END_LR=0.00001

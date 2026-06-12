@@ -27,7 +27,7 @@ eval "$(conda shell.bash hook)"
 conda activate biogo
 
 # Folder prefix separates model checkpoints under data/ExperimentModels/$FOLDER_PREFIX/.
-export FOLDER_PREFIX="${FOLDER_PREFIX:-MNv3_1.0_MCD}"
+export FOLDER_PREFIX="${FOLDER_PREFIX:-MNv3_gauss}"
 
 echo "==========================================="
 echo "Starting experiments on ${FOLDER_PREFIX}"
